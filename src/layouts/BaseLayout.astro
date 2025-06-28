@@ -24,7 +24,7 @@ const { title, description = "Welcome to my portfolio" } = Astro.props;
         <div class="nav-content">
           <a href="/" class="logo">
             <img src="https://pub-55f502b1bb8a47b18e001af1f25c9d6c.r2.dev/profile-picture.jpeg" class="profile-pic" />
-            <span>Martin Carrasco</span>
+            <span>{title}</span>
           </a>
           <div class="nav-links">
             <a href="/">Home</a>
@@ -68,7 +68,7 @@ const { title, description = "Welcome to my portfolio" } = Astro.props;
 <style>
   /* Reset and base styles */
   :root {
-    --primary-color: #ff6b51;
+    --primary-color: #f23551;;
     --text-color: #fff;
     --background-color: #181c23;
     --muted-text: #b0b4be;

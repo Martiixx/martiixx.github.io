@@ -1,0 +1,45 @@
+[
+  {
+    "id": 1,
+    "name": "Architecture and Advance Patterns",
+    "description": "NestJs Architecture and Advance Patterns course project. Understanding concepts from different types of Architectures such as N-Tier, Hexagonal and Event-Driven Architectures.",
+    "image": "https://docs.nestjs.com/assets/logo-small-gradient.svg",
+    "technologies": ["React", "Node.js", "TypeScript", "PostgreSQL"],
+    "links": {
+      "github": "https://github.com/martiixx/advance-architecture"
+    }
+  },
+  {
+    "id": 2,
+    "name": "E-Commerce Platform",
+    "description": "A comprehensive e-commerce solution with payment integration, inventory management, and responsive design. a more text to commplement the idesa ",
+    "image": "project-2",
+    "technologies": ["Next.js", "Stripe", "MongoDB", "Tailwind CSS"],
+    "links": {
+      "live": "https://ecommerce-platform.com",
+      "github": "https://github.com/martiixx/ecommerce-platform"
+    }
+  },
+  {
+    "id": 3,
+    "name": "Task Management App",
+    "description": "A collaborative task management application with real-time updates, team features, and intuitive UI.",
+    "image": "project-3",
+    "technologies": ["Vue.js", "Firebase", "Vuetify", "PWA"],
+    "links": {
+      "live": "https://task-manager-app.com",
+      "github": "https://github.com/martiixx/task-manager"
+    }
+  },
+  {
+    "id": 4,
+    "name": "Task Management App",
+    "description": "A collaborative task management application with real-time updates, team features, and intuitive UI.",
+    "image": "project-3",
+    "technologies": ["Vue.js", "Firebase", "Vuetify", "PWA"],
+    "links": {
+      "live": "https://task-manager-app.com",
+      "github": "https://github.com/martiixx/task-manager"
+    }
+  }
+] 
