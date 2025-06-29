@@ -1,0 +1,42 @@
+[
+  {
+    "name": "JavaScript",
+    "icon": "javascript",
+    "color": "#F7DF1E"
+  },
+  {
+    "name": "TypeScript",
+    "icon": "typescript",
+    "color": "#3178C6"
+  },
+  {
+    "name": "React",
+    "icon": "react",
+    "color": "#61DAFB"
+  },
+  {
+    "name": "Node.js",
+    "icon": "nodejs",
+    "color": "#339933"
+  },
+  {
+    "name": "Python",
+    "icon": "python",
+    "color": "#3776AB"
+  },
+  {
+    "name": "Astro",
+    "icon": "astro",
+    "color": "#FF5D01"
+  },
+  {
+    "name": "CSS",
+    "icon": "css3",
+    "color": "#1572B6"
+  },
+  {
+    "name": "Git",
+    "icon": "git",
+    "color": "#F05032"
+  }
+] 

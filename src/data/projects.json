@@ -11,24 +11,22 @@
   },
   {
     "id": 2,
-    "name": "E-Commerce Platform",
-    "description": "A comprehensive e-commerce solution with payment integration, inventory management, and responsive design. a more text to commplement the idesa ",
+    "name": "Kafka topic real time counter",
+    "description": "Kafka Observer is a microservice that connects to Kafka topics and keeps track of message counts in real-time. It provides REST endpoints to query the current message counts for each topic.",
     "image": "project-2",
     "technologies": ["Next.js", "Stripe", "MongoDB", "Tailwind CSS"],
     "links": {
-      "live": "https://ecommerce-platform.com",
-      "github": "https://github.com/martiixx/ecommerce-platform"
+      "github": "https://github.com/Martiixx/kakfa-observer"
     }
   },
   {
     "id": 3,
-    "name": "Task Management App",
-    "description": "A collaborative task management application with real-time updates, team features, and intuitive UI.",
+    "name": "Rutify npm package",
+    "description": "A Node.js library for formatting and validating Chilean RUT (Rol Único Tributario) numbers. It provides functions to format RUTs as strings, validate them, and extract the digits and check digit.",
     "image": "project-3",
-    "technologies": ["Vue.js", "Firebase", "Vuetify", "PWA"],
+    "technologies": ["Node.js", "TypeScript"],
     "links": {
-      "live": "https://task-manager-app.com",
-      "github": "https://github.com/martiixx/task-manager"
+      "github": "https://github.com/Martiixx/rutify"
     }
   },
   {
