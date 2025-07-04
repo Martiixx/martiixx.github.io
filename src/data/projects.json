@@ -28,16 +28,5 @@
     "links": {
       "github": "https://github.com/Martiixx/rutify"
     }
-  },
-  {
-    "id": 4,
-    "name": "Task Management App",
-    "description": "A collaborative task management application with real-time updates, team features, and intuitive UI.",
-    "image": "project-3",
-    "technologies": ["Vue.js", "Firebase", "Vuetify", "PWA"],
-    "links": {
-      "live": "https://task-manager-app.com",
-      "github": "https://github.com/martiixx/task-manager"
-    }
   }
 ] 

@@ -6,7 +6,7 @@ import projectsData from '../data/projects.json';
 const featuredProjects = projectsData.slice(0, 4);
 ---
 
-<BaseLayout title="Martin Carrasco - Portfolio" description="Full-stack developer and creative technologist">
+<BaseLayout title="Martin Carrasco - Portfolio" description="Software Engineer with 7 years of experience in backend architecture, microservices, and modern web technologies">
   <!-- Hero Section -->
   <section class="hero">
     <div class="hero-content">
@@ -15,7 +15,7 @@ const featuredProjects = projectsData.slice(0, 4);
           Hi, I'm <span class="highlight">Martin Carrasco</span>
         </h1>
         <p class="hero-subtitle">
-          Full-stack developer passionate about creating beautiful, functional, and user-centered digital experiences.
+          Software Engineer with 7 years of experience specializing in backend architecture, microservices, and Event-Driven Architecture. Currently working on high-performance systems processing millions of data points.
         </p>
         <div class="hero-buttons">
           <a href="/projects" class="btn btn-primary">View My Work</a>
@@ -37,25 +37,26 @@ const featuredProjects = projectsData.slice(0, 4);
       <div class="about-content">
         <div class="about-text">
           <p>
-            I'm a passionate developer with expertise in modern web technologies. 
-            I love turning complex problems into simple, beautiful, and intuitive solutions.
+            I'm a passionate Software Engineer with expertise in backend architecture, microservices, and modern web technologies. 
+            I specialize in building scalable applications using NestJS, Kafka, and advanced architectural patterns.
           </p>
           <p>
-            When I'm not coding, you can find me exploring new technologies, 
-            contributing to open source projects, or sharing knowledge with the developer community.
+            My expertise includes designing scalable microservices, implementing Backend-for-Frontend patterns, 
+            and optimizing cloud infrastructure. I'm passionate about sharing knowledge with fellow developers 
+            and contributing to collaborative work environments.
           </p>
         </div>
         <div class="skills">
           <h3>Technologies I work with:</h3>
           <div class="skill-tags">
-            <span class="skill-tag">JavaScript</span>
             <span class="skill-tag">TypeScript</span>
-            <span class="skill-tag">React</span>
             <span class="skill-tag">Node.js</span>
-            <span class="skill-tag">Python</span>
-            <span class="skill-tag">Astro</span>
-            <span class="skill-tag">CSS</span>
-            <span class="skill-tag">Git</span>
+            <span class="skill-tag">NestJS</span>
+            <span class="skill-tag">Java</span>
+            <span class="skill-tag">Spring Boot</span>
+            <span class="skill-tag">Kafka</span>
+            <span class="skill-tag">MongoDB</span>
+            <span class="skill-tag">Redis</span>
           </div>
         </div>
       </div>
@@ -70,7 +71,7 @@ const featuredProjects = projectsData.slice(0, 4);
         {featuredProjects.map((project) => (
           <div class="project-card">
             <div class="project-image">
-              <a href={project.links.live || project.links.github} target="_blank" rel="noopener noreferrer">
+              <a href={project.links.github} target="_blank" rel="noopener noreferrer">
                 <img src={project.image} alt={project.name} class="project-img" />
               </a>
             </div>

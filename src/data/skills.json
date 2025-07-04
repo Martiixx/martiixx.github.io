@@ -1,18 +1,8 @@
 [
   {
-    "name": "JavaScript",
-    "icon": "javascript",
-    "color": "#F7DF1E"
-  },
-  {
     "name": "TypeScript",
     "icon": "typescript",
     "color": "#3178C6"
-  },
-  {
-    "name": "React",
-    "icon": "react",
-    "color": "#61DAFB"
   },
   {
     "name": "Node.js",
@@ -20,23 +10,63 @@
     "color": "#339933"
   },
   {
+    "name": "NestJS",
+    "icon": "nestjs",
+    "color": "#E0234E"
+  },
+  {
+    "name": "Java",
+    "icon": "java",
+    "color": "#ED8B00"
+  },
+  {
+    "name": "Spring Boot",
+    "icon": "spring",
+    "color": "#6DB33F"
+  },
+  {
     "name": "Python",
     "icon": "python",
     "color": "#3776AB"
   },
   {
-    "name": "Astro",
-    "icon": "astro",
-    "color": "#FF5D01"
+    "name": "Kafka",
+    "icon": "apachekafka",
+    "color": "#231F20"
   },
   {
-    "name": "CSS",
-    "icon": "css3",
-    "color": "#1572B6"
+    "name": "PostgreSQL",
+    "icon": "postgresql",
+    "color": "#336791"
+  },
+  {
+    "name": "MongoDB",
+    "icon": "mongodb",
+    "color": "#47A248"
   },
   {
     "name": "Git",
     "icon": "git",
     "color": "#F05032"
+  },
+  {
+    "name": "Redis",
+    "icon": "redis",
+    "color": "#DC382D"
+  },
+  {
+    "name": "Docker",
+    "icon": "docker",
+    "color": "#2496ED"
+  },
+  {
+    "name": "Kubernetes",
+    "icon": "kubernetes",
+    "color": "#326CE5"
+  },
+  {
+    "name": "AWS",
+    "icon": "amazonaws",
+    "color": "#FF9900"
   }
 ] 
