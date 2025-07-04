@@ -1,0 +1,518 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import projectsData from '../../data/projects.json';
+
+export async function getStaticPaths() {
+  return projectsData.map((project) => ({
+    params: { slug: project.id.toString() },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+
+// Find related projects (same technologies or similar category)
+const relatedProjects = projectsData
+  .filter(p => p.id !== project.id)
+  .slice(0, 3);
+---
+
+<BaseLayout title={`${project.name} - Martin Carrasco`} description={project.description}>
+  <!-- Project Header -->
+  <section class="project-header">
+    <div class="container">
+      <div class="project-header-content">
+        <div class="project-header-text">
+          <h1 class="project-title">{project.name}</h1>
+          <p class="project-subtitle">{project.description}</p>
+          <div class="project-meta">
+            <div class="project-links">
+              <a href={project.links.github} class="project-link primary" target="_blank" rel="noopener noreferrer">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                </svg>
+                View on GitHub
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="project-header-image">
+          <img src={project.image} alt={project.name} class="project-hero-image" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Project Content -->
+  <section class="project-content">
+    <div class="container">
+      <div class="project-grid">
+        <!-- Main Content -->
+        <div class="project-main">
+          <div class="project-section">
+            <h2>Project Overview</h2>
+            <p class="project-description">
+              {project.description}
+            </p>
+          </div>
+
+          <div class="project-section">
+            <h2>Technologies Used</h2>
+            <div class="technologies-grid">
+              {project.technologies.map((tech) => (
+                <div class="technology-item">
+                  <span class="technology-name">{tech}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div class="project-section">
+            <h2>Key Features</h2>
+            <ul class="features-list">
+              <li>Scalable architecture design</li>
+              <li>High-performance data processing</li>
+              <li>Real-time communication capabilities</li>
+              <li>Robust error handling and validation</li>
+              <li>Cloud-native deployment</li>
+              <li>Comprehensive testing coverage</li>
+            </ul>
+          </div>
+
+          <div class="project-section">
+            <h2>Development Process</h2>
+            <div class="process-steps">
+              <div class="process-step">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                  <h3>Requirements Analysis</h3>
+                  <p>Understanding the business requirements and technical constraints</p>
+                </div>
+              </div>
+              <div class="process-step">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                  <h3>Architecture Design</h3>
+                  <p>Designing scalable and maintainable system architecture</p>
+                </div>
+              </div>
+              <div class="process-step">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                  <h3>Implementation</h3>
+                  <p>Building the solution with best practices and clean code</p>
+                </div>
+              </div>
+              <div class="process-step">
+                <div class="step-number">4</div>
+                <div class="step-content">
+                  <h3>Testing & Deployment</h3>
+                  <p>Comprehensive testing and production deployment</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="project-sidebar">
+          <div class="sidebar-section">
+            <h3>Project Details</h3>
+            <div class="project-details">
+              <div class="detail-item">
+                <span class="detail-label">Category:</span>
+                <span class="detail-value">Backend Development</span>
+              </div>
+              <div class="detail-item">
+                <span class="detail-label">Duration:</span>
+                <span class="detail-value">3-6 months</span>
+              </div>
+              <div class="detail-item">
+                <span class="detail-label">Team Size:</span>
+                <span class="detail-value">3-5 developers</span>
+              </div>
+              <div class="detail-item">
+                <span class="detail-label">Role:</span>
+                <span class="detail-value">Backend Developer</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="sidebar-section">
+            <h3>Technical Stack</h3>
+            <div class="tech-stack">
+              {project.technologies.map((tech) => (
+                <div class="tech-item">
+                  <span class="tech-name">{tech}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Related Projects -->
+  <section class="related-projects">
+    <div class="container">
+      <h2>Related Projects</h2>
+      <div class="related-projects-grid">
+        {relatedProjects.map((relatedProject) => (
+          <div class="related-project-card">
+            <div class="related-project-image">
+              <a href={`/projects/${relatedProject.id}`}>
+                <img src={relatedProject.image} alt={relatedProject.name} />
+              </a>
+            </div>
+            <div class="related-project-content">
+              <h3>{relatedProject.name}</h3>
+              <p>{relatedProject.description}</p>
+              <div class="related-project-technologies">
+                {relatedProject.technologies.slice(0, 3).map((tech) => (
+                  <span class="tech-tag">{tech}</span>
+                ))}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .project-header {
+    margin-bottom: 4rem;
+  }
+
+  .project-header-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: center;
+  }
+
+  .project-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    background: linear-gradient(135deg, var(--primary-color), #ff6b6b);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .project-subtitle {
+    font-size: 1.1rem;
+    color: var(--muted-text);
+    line-height: 1.6;
+    margin-bottom: 2rem;
+  }
+
+  .project-meta {
+    margin-bottom: 2rem;
+  }
+
+  .project-links {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .project-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+  }
+
+  .project-link.primary {
+    background: var(--primary-color);
+    color: white;
+  }
+
+  .project-link.primary:hover {
+    background: #d32f2f;
+    transform: translateY(-2px);
+  }
+
+  .project-link.secondary {
+    border: 2px solid var(--primary-color);
+    color: var(--primary-color);
+  }
+
+  .project-link.secondary:hover {
+    background: var(--primary-color);
+    color: white;
+  }
+
+  .project-hero-image {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 12px;
+    border: 1px solid #2d3748;
+  }
+
+  .project-content {
+    margin-bottom: 4rem;
+  }
+
+  .project-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 3rem;
+  }
+
+  .project-section {
+    margin-bottom: 3rem;
+  }
+
+  .project-section h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    color: var(--text-color);
+  }
+
+  .project-description {
+    color: var(--muted-text);
+    line-height: 1.7;
+    font-size: 1.1rem;
+  }
+
+  .technologies-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 1rem;
+  }
+
+  .technology-item {
+    padding: 0.75rem;
+    background: #1a202c;
+    border: 1px solid #2d3748;
+    border-radius: 8px;
+    text-align: center;
+  }
+
+  .technology-name {
+    color: var(--primary-color);
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+
+  .features-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  .features-list li {
+    color: var(--muted-text);
+    margin-bottom: 0.75rem;
+    padding-left: 1.5rem;
+    position: relative;
+  }
+
+  .features-list li::before {
+    content: '✓';
+    color: var(--primary-color);
+    position: absolute;
+    left: 0;
+    font-weight: bold;
+  }
+
+  .process-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .process-step {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+
+  .step-number {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: var(--primary-color);
+    color: white;
+    border-radius: 50%;
+    font-weight: bold;
+    flex-shrink: 0;
+  }
+
+  .step-content h3 {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+    color: var(--text-color);
+  }
+
+  .step-content p {
+    color: var(--muted-text);
+    line-height: 1.6;
+  }
+
+  .project-sidebar {
+    position: sticky;
+    top: 2rem;
+  }
+
+  .sidebar-section {
+    background: #1a202c;
+    border: 1px solid #2d3748;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .sidebar-section h3 {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    color: var(--text-color);
+  }
+
+  .project-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .detail-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .detail-label {
+    color: var(--muted-text);
+    font-size: 0.9rem;
+  }
+
+  .detail-value {
+    color: var(--text-color);
+    font-weight: 500;
+  }
+
+  .tech-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .tech-item {
+    padding: 0.5rem;
+    background: rgba(242, 53, 81, 0.1);
+    border-radius: 6px;
+    text-align: center;
+  }
+
+  .tech-name {
+    color: var(--primary-color);
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+
+  .related-projects {
+    margin-bottom: 4rem;
+  }
+
+  .related-projects h2 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    text-align: center;
+    color: var(--text-color);
+  }
+
+  .related-projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+
+  .related-project-card {
+    background: #1a202c;
+    border: 1px solid #2d3748;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+  }
+
+  .related-project-card:hover {
+    transform: translateY(-4px);
+  }
+
+  .related-project-image img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+  }
+
+  .related-project-content {
+    padding: 1.5rem;
+  }
+
+  .related-project-content h3 {
+    font-size: 1.1rem;
+    margin-bottom: 0.75rem;
+    color: var(--text-color);
+  }
+
+  .related-project-content p {
+    color: var(--muted-text);
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin-bottom: 1rem;
+  }
+
+  .related-project-technologies {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .tech-tag {
+    padding: 0.25rem 0.5rem;
+    background: rgba(242, 53, 81, 0.2);
+    color: var(--primary-color);
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 500;
+  }
+
+  @media (max-width: 768px) {
+    .project-header-content {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    .project-title {
+      font-size: 2rem;
+    }
+
+    .project-grid {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    .project-sidebar {
+      position: static;
+    }
+
+    .technologies-grid {
+      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    }
+
+    .related-projects-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style> 

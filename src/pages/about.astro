@@ -1,0 +1,556 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import skillsData from '../data/skills.json';
+
+// Professional experience data
+const experience = [
+  {
+    company: "Apiux - Vidacamara",
+    position: "Software Engineer - Backend Specialist",
+    location: "Santiago, Chile (Hybrid)",
+    period: "December 2023 - Present",
+    description: "Part of the core development team working on high-performance premium calculation systems using Event-Driven Architecture. Processing millions of data points efficiently for insurance premium calculations.",
+    technologies: ["NestJS", "SQL", "MongoDB", "Kubernetes", "Python", "FastAPI", "Jest", "Git", "PHP", "Java", "Redis", "Jira", "Kafka"],
+    achievements: [
+      "Developed and deployed Backend-for-Frontend (BFF) pattern",
+      "Designed scalable backend architecture solutions",
+      "Built RESTful APIs and gRPC services",
+      "Optimized cloud infrastructure using Google Cloud"
+    ]
+  },
+  {
+    company: "Smartroutes",
+    position: "Backend Developer",
+    location: "Cork, Ireland (On-site)",
+    period: "April 2023 - November 2023",
+    description: "Led development of key features for last-mile delivery software solution, optimizing delivery routes and logistics.",
+    technologies: ["ExpressJS", "NestJS", "SQL", "MongoDB", "Jenkins", "Python", "Jest", "Git", "PHP", "Java", "Redis"],
+    achievements: [
+      "Upgraded and maintained critical software components",
+      "Implemented Redis caching to enhance database performance",
+      "Designed and optimized complex queries",
+      "Developed robust error handling framework",
+      "Implemented Zod validator for strict data validation",
+      "Enhanced real-time communication using WebSockets"
+    ]
+  },
+  {
+    company: "Witi - Starbucks",
+    position: "Software Engineer - Rewards Program",
+    location: "Santiago, Chile (Remote)",
+    period: "January 2021 - December 2022",
+    description: "Developed third-party services for credit/debit card payment processing, enabling seamless transactions across multiple platforms.",
+    technologies: ["Java 8", "Spring Boot", "Jenkins", "ReactJS", "Python", "AWS", "JUnit", "Git", "Relational Databases"],
+    achievements: [
+      "Developed and deployed third-party payment processing services",
+      "Provided technical consulting and peer programming sessions",
+      "Designed and tested all phases of software lifecycle",
+      "Applied design patterns, SOLID principles, and agile methodologies"
+    ]
+  },
+  {
+    company: "Workmate Chile",
+    position: "Full Stack Developer",
+    location: "Santiago, Chile (On-site)",
+    period: "April 2019 - August 2021",
+    description: "Led development of mobile application using Ionic with online and offline functionalities and cloud synchronization.",
+    technologies: ["Laravel", "Ionic", "JavaScript", "Python", "Docker", "Linux", "MongoDB", "Angular", "Git"],
+    achievements: [
+      "Led development of mobile application using Ionic",
+      "Implemented online and offline functionalities with cloud synchronization",
+      "Managed and coordinated scrum development team",
+      "Designed relational and non-relational database structures"
+    ]
+  },
+  {
+    company: "Onesla",
+    position: "Full Stack Developer",
+    location: "Santiago, Chile (On-site)",
+    period: "January 2018 - March 2019",
+    description: "Designed and implemented IoT security software solutions for private premises.",
+    technologies: ["Java 8", "Spring Boot", "VueJS", "OracleDB", "AWS", "Git", "Docker", "PHP (Laravel)"],
+    achievements: [
+      "Designed and implemented IoT security software solutions",
+      "Managed software development projects and teams using Jira, Trello",
+      "Developed user authentication system with role-based permissions"
+    ]
+  }
+];
+
+const education = [
+  {
+    institution: "Universidad de Santiago de Chile",
+    degree: "Computer Science",
+    period: "March 2014 - December 2018",
+    description: "Key Topics: Python, C++, Database Design, Theory of Computation"
+  },
+  {
+    institution: "42 School Silicon Valley",
+    degree: "Study Program",
+    period: "October 2019 - December 2019",
+    description: "Specialization in C, Bash/sh scripting, Unix-based system management"
+  }
+];
+
+const certifications = [
+  {
+    name: "IELTS General Training",
+    level: "B2 Certificate",
+    year: "2024"
+  },
+  {
+    name: "NestJS Architecture and Advanced Patterns",
+    level: "Course Completion",
+    year: "July 2024"
+  }
+];
+---
+
+<BaseLayout title="About - Martin Carrasco" description="Learn more about Martin Carrasco, a Software Engineer with 7 years of experience in backend architecture, microservices, and modern web technologies">
+  <!-- About Header -->
+  <section class="about-header">
+    <div class="container">
+      <h1 class="page-title">About Me</h1>
+      <p class="page-subtitle">
+        Results-driven Software Engineer with 7 years of experience in the industry, specializing in backend architecture and microservices.
+      </p>
+    </div>
+  </section>
+
+  <!-- Personal Introduction -->
+  <section class="personal-intro">
+    <div class="container">
+      <div class="intro-content">
+        <div class="intro-text">
+          <h2>Martin Alfredo Carrasco Godoy</h2>
+          <p class="intro-description">
+            I'm a passionate Software Engineer with expertise in backend architecture, microservices, and modern web technologies. 
+            I specialize in building scalable applications using NestJS, Kafka, and advanced architectural patterns.
+          </p>
+          <p class="intro-description">
+            With excellent communication skills, adept analytical abilities, and a fast learning curve, I'm proficient in collaborating 
+            with cross-functional teams to deliver high-quality software solutions. I'm passionate about sharing knowledge with fellow 
+            developers and contributing to a collaborative work environment.
+          </p>
+          <div class="contact-info">
+            <div class="contact-item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                <polyline points="22,6 12,13 2,6"/>
+              </svg>
+              <span>martingodoycarrasco@gmail.com</span>
+            </div>
+            <div class="contact-item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                <circle cx="12" cy="10" r="3"/>
+              </svg>
+              <span>Santiago, Chile</span>
+            </div>
+          </div>
+        </div>
+        <div class="intro-image">
+          <img src="https://pub-55f502b1bb8a47b18e001af1f25c9d6c.r2.dev/profile-picture.jpeg" alt="Martin Carrasco" class="profile-image" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills Section -->
+  <section class="skills-section">
+    <div class="container">
+      <h2>Skills & Technologies</h2>
+      <div class="skills-grid">
+        {skillsData.map((skill) => (
+          <div class="skill-item">
+            <div class="skill-icon" style={`background-color: ${skill.color}20; color: ${skill.color}`}>
+              <span class="skill-name">{skill.name}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Experience Timeline -->
+  <section class="experience-section">
+    <div class="container">
+      <h2>Professional Experience</h2>
+      <div class="timeline">
+        {experience.map((job, index) => (
+          <div class="timeline-item">
+            <div class="timeline-marker"></div>
+            <div class="timeline-content">
+              <div class="job-header">
+                <h3 class="job-title">{job.position}</h3>
+                <h4 class="job-company">{job.company}</h4>
+                <div class="job-meta">
+                  <span class="job-location">{job.location}</span>
+                  <span class="job-period">{job.period}</span>
+                </div>
+              </div>
+              <p class="job-description">{job.description}</p>
+              <div class="job-technologies">
+                {job.technologies.map((tech) => (
+                  <span class="tech-tag">{tech}</span>
+                ))}
+              </div>
+              <ul class="job-achievements">
+                {job.achievements.map((achievement) => (
+                  <li>{achievement}</li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Education & Certifications -->
+  <section class="education-section">
+    <div class="container">
+      <div class="education-grid">
+        <div class="education-column">
+          <h2>Education</h2>
+          {education.map((edu) => (
+            <div class="education-item">
+              <h3>{edu.institution}</h3>
+              <h4>{edu.degree}</h4>
+              <p class="education-period">{edu.period}</p>
+              <p class="education-description">{edu.description}</p>
+            </div>
+          ))}
+        </div>
+        <div class="education-column">
+          <h2>Certifications</h2>
+          {certifications.map((cert) => (
+            <div class="certification-item">
+              <h3>{cert.name}</h3>
+              <p class="certification-level">{cert.level}</p>
+              <p class="certification-year">{cert.year}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .about-header {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+
+  .page-title {
+    font-size: 3rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    background: linear-gradient(135deg, var(--primary-color), #ff6b6b);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .page-subtitle {
+    font-size: 1.2rem;
+    color: var(--muted-text);
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .personal-intro {
+    margin-bottom: 4rem;
+  }
+
+  .intro-content {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+
+  .intro-text h2 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    color: var(--text-color);
+  }
+
+  .intro-description {
+    color: var(--muted-text);
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+  }
+
+  .contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+
+  .contact-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: var(--muted-text);
+  }
+
+  .contact-item svg {
+    color: var(--primary-color);
+  }
+
+  .intro-image {
+    text-align: center;
+  }
+
+  .profile-image {
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid var(--primary-color);
+  }
+
+  .skills-section {
+    margin-bottom: 4rem;
+  }
+
+  .skills-section h2 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    text-align: center;
+    color: var(--text-color);
+  }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .skill-item {
+    text-align: center;
+  }
+
+  .skill-icon {
+    padding: 1.5rem;
+    border-radius: 12px;
+    border: 1px solid #2d3748;
+    transition: transform 0.3s ease;
+  }
+
+  .skill-icon:hover {
+    transform: translateY(-4px);
+  }
+
+  .skill-name {
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+
+  .experience-section {
+    margin-bottom: 4rem;
+  }
+
+  .experience-section h2 {
+    font-size: 2rem;
+    margin-bottom: 3rem;
+    text-align: center;
+    color: var(--text-color);
+  }
+
+  .timeline {
+    position: relative;
+    padding-left: 2rem;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--primary-color);
+  }
+
+  .timeline-item {
+    position: relative;
+    margin-bottom: 3rem;
+  }
+
+  .timeline-marker {
+    position: absolute;
+    left: -2.5rem;
+    top: 0.5rem;
+    width: 1rem;
+    height: 1rem;
+    background: var(--primary-color);
+    border-radius: 50%;
+    border: 3px solid var(--background-color);
+  }
+
+  .timeline-content {
+    background: #1a202c;
+    border: 1px solid #2d3748;
+    border-radius: 12px;
+    padding: 2rem;
+  }
+
+  .job-header {
+    margin-bottom: 1rem;
+  }
+
+  .job-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+  }
+
+  .job-company {
+    font-size: 1.1rem;
+    color: var(--text-color);
+    margin-bottom: 0.5rem;
+  }
+
+  .job-meta {
+    display: flex;
+    gap: 1rem;
+    color: var(--muted-text);
+    font-size: 0.9rem;
+  }
+
+  .job-description {
+    color: var(--muted-text);
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+
+  .job-technologies {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .tech-tag {
+    padding: 0.25rem 0.75rem;
+    background: rgba(242, 53, 81, 0.2);
+    color: var(--primary-color);
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 500;
+  }
+
+  .job-achievements {
+    list-style: none;
+    padding: 0;
+  }
+
+  .job-achievements li {
+    color: var(--muted-text);
+    margin-bottom: 0.5rem;
+    padding-left: 1.5rem;
+    position: relative;
+  }
+
+  .job-achievements li::before {
+    content: '•';
+    color: var(--primary-color);
+    position: absolute;
+    left: 0;
+    font-weight: bold;
+  }
+
+  .education-section {
+    margin-bottom: 4rem;
+  }
+
+  .education-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+  }
+
+  .education-column h2 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    color: var(--text-color);
+  }
+
+  .education-item,
+  .certification-item {
+    background: #1a202c;
+    border: 1px solid #2d3748;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .education-item h3,
+  .certification-item h3 {
+    font-size: 1.1rem;
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+  }
+
+  .education-item h4 {
+    font-size: 1rem;
+    color: var(--text-color);
+    margin-bottom: 0.5rem;
+  }
+
+  .education-period,
+  .certification-year {
+    color: var(--muted-text);
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .education-description,
+  .certification-level {
+    color: var(--muted-text);
+    line-height: 1.6;
+  }
+
+  @media (max-width: 768px) {
+    .page-title {
+      font-size: 2rem;
+    }
+
+    .intro-content {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    .profile-image {
+      width: 200px;
+      height: 200px;
+    }
+
+    .skills-grid {
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    }
+
+    .timeline {
+      padding-left: 1rem;
+    }
+
+    .timeline-marker {
+      left: -1.5rem;
+    }
+
+    .education-grid {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    .job-meta {
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+  }
+</style> 
