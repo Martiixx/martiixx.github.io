@@ -1,0 +1,406 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+// Get all blog posts
+const posts = await getCollection('blog');
+const sortedPosts = posts.sort((a, b) => new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime());
+
+// Get unique tags for filtering
+const allTags = [...new Set(posts.flatMap(post => post.data.tags))];
+---
+
+<BaseLayout title="Blog - Martin Carrasco" description="Technical articles and insights about software engineering, microservices, performance optimization, and modern web development.">
+  <section class="blog-hero">
+    <div class="container">
+      <h1>Blog</h1>
+      <p class="blog-subtitle">
+        Technical insights, tutorials, and thoughts on software engineering, 
+        microservices architecture, and building scalable systems.
+      </p>
+    </div>
+  </section>
+
+  <section class="blog-content">
+    <div class="container">
+      <!-- Search and Filter -->
+      <div class="blog-controls">
+        <div class="search-box">
+          <input type="text" id="search-input" placeholder="Search articles..." />
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"/>
+            <path d="m21 21-4.35-4.35"/>
+          </svg>
+        </div>
+        
+        <div class="filter-tags">
+          <button class="filter-btn active" data-tag="all">All</button>
+          {allTags.map(tag => (
+            <button class="filter-btn" data-tag={tag}>{tag}</button>
+          ))}
+        </div>
+      </div>
+
+      <!-- Blog Posts Grid -->
+      <div class="blog-grid" id="blog-grid">
+        {sortedPosts.map((post) => (
+          <article class="blog-card" data-tags={post.data.tags.join(' ')}>
+            <div class="blog-card-image">
+              <a href={`/blog/${post.slug}`}>
+                <img src={post.data.image} alt={post.data.title} />
+              </a>
+            </div>
+            <div class="blog-card-content">
+              <div class="blog-meta">
+                <span class="blog-date">
+                  {new Date(post.data.pubDate).toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                  })}
+                </span>
+                <span class="blog-author">{post.data.author}</span>
+              </div>
+              
+              <h2 class="blog-title">
+                <a href={`/blog/${post.slug}`}>{post.data.title}</a>
+              </h2>
+              
+              <p class="blog-excerpt">{post.data.description}</p>
+              
+              <div class="blog-tags">
+                {post.data.tags.map(tag => (
+                  <span class="blog-tag">{tag}</span>
+                ))}
+              </div>
+              
+              <a href={`/blog/${post.slug}`} class="read-more">
+                Read More
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M5 12h14"/>
+                  <path d="m12 5 7 7-7 7"/>
+                </svg>
+              </a>
+            </div>
+          </article>
+        ))}
+      </div>
+
+      <!-- No Results Message -->
+      <div class="no-results" id="no-results" style="display: none;">
+        <div class="no-results-content">
+          <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <circle cx="11" cy="11" r="8"/>
+            <path d="m21 21-4.35-4.35"/>
+          </svg>
+          <h3>No articles found</h3>
+          <p>Try adjusting your search terms or filters to find what you're looking for.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .blog-hero {
+    padding: 4rem 0;
+    background: linear-gradient(135deg, var(--background-color) 0%, #1a202c 100%);
+    text-align: center;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  .blog-hero h1 {
+    font-size: 3rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    color: var(--text-color);
+  }
+
+  .blog-subtitle {
+    font-size: 1.2rem;
+    color: var(--muted-text);
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  .blog-content {
+    padding: 4rem 0;
+    background: var(--background-color);
+  }
+
+  .blog-controls {
+    margin-bottom: 3rem;
+  }
+
+  .search-box {
+    position: relative;
+    max-width: 400px;
+    margin-bottom: 2rem;
+  }
+
+  .search-box input {
+    width: 100%;
+    padding: 0.75rem 1rem 0.75rem 2.5rem;
+    border: 1px solid #2d3748;
+    border-radius: 8px;
+    background: #1a202c;
+    color: var(--text-color);
+    font-size: 1rem;
+  }
+
+  .search-box input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(242, 53, 81, 0.1);
+  }
+
+  .search-box svg {
+    position: absolute;
+    left: 0.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--muted-text);
+  }
+
+  .filter-tags {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .filter-btn {
+    padding: 0.5rem 1rem;
+    border: 1px solid #2d3748;
+    border-radius: 20px;
+    background: #1a202c;
+    color: var(--text-color);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+  }
+
+  .filter-btn:hover,
+  .filter-btn.active {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+    color: white;
+  }
+
+  .blog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 2rem;
+  }
+
+  .blog-card {
+    background: #1a202c;
+    border: 1px solid #2d3748;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+
+  .blog-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    border-color: var(--primary-color);
+  }
+
+  .blog-card-image {
+    height: 200px;
+    overflow: hidden;
+  }
+
+  .blog-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+
+  .blog-card:hover .blog-card-image img {
+    transform: scale(1.05);
+  }
+
+  .blog-card-content {
+    padding: 1.5rem;
+  }
+
+  .blog-meta {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+    color: var(--muted-text);
+  }
+
+  .blog-title {
+    font-size: 1.3rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    line-height: 1.4;
+  }
+
+  .blog-title a {
+    color: var(--text-color);
+    text-decoration: none;
+  }
+
+  .blog-title a:hover {
+    color: var(--primary-color);
+  }
+
+  .blog-excerpt {
+    color: var(--muted-text);
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+  }
+
+  .blog-tags {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.5rem;
+  }
+
+  .blog-tag {
+    padding: 0.25rem 0.75rem;
+    background: rgba(242, 53, 81, 0.1);
+    border: 1px solid rgba(242, 53, 81, 0.3);
+    border-radius: 12px;
+    font-size: 0.8rem;
+    color: var(--primary-color);
+  }
+
+  .read-more {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: gap 0.3s ease;
+  }
+
+  .read-more:hover {
+    gap: 0.75rem;
+  }
+
+  .no-results {
+    text-align: center;
+    padding: 4rem 0;
+  }
+
+  .no-results-content {
+    max-width: 400px;
+    margin: 0 auto;
+  }
+
+  .no-results svg {
+    color: var(--muted-text);
+    margin-bottom: 1rem;
+  }
+
+  .no-results h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: var(--text-color);
+  }
+
+  .no-results p {
+    color: var(--muted-text);
+    line-height: 1.6;
+  }
+
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .blog-hero h1 {
+      font-size: 2.5rem;
+    }
+
+    .blog-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .filter-tags {
+      justify-content: center;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const searchInput = document.getElementById('search-input');
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const blogCards = document.querySelectorAll('.blog-card');
+    const blogGrid = document.getElementById('blog-grid');
+    const noResults = document.getElementById('no-results');
+
+    let currentFilter = 'all';
+    let currentSearch = '';
+
+    function filterPosts() {
+      let visibleCount = 0;
+
+      blogCards.forEach(card => {
+        const title = card.querySelector('.blog-title').textContent.toLowerCase();
+        const excerpt = card.querySelector('.blog-excerpt').textContent.toLowerCase();
+        const tags = card.dataset.tags.toLowerCase();
+        
+        const matchesSearch = currentSearch === '' || 
+          title.includes(currentSearch) || 
+          excerpt.includes(currentSearch) ||
+          tags.includes(currentSearch);
+        
+        const matchesFilter = currentFilter === 'all' || 
+          card.dataset.tags.includes(currentFilter);
+
+        if (matchesSearch && matchesFilter) {
+          card.style.display = 'block';
+          visibleCount++;
+        } else {
+          card.style.display = 'none';
+        }
+      });
+
+      // Show/hide no results message
+      if (visibleCount === 0) {
+        blogGrid.style.display = 'none';
+        noResults.style.display = 'block';
+      } else {
+        blogGrid.style.display = 'grid';
+        noResults.style.display = 'none';
+      }
+    }
+
+    // Search functionality
+    searchInput.addEventListener('input', function(e) {
+      currentSearch = e.target.value.toLowerCase();
+      filterPosts();
+    });
+
+    // Filter functionality
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', function() {
+        // Remove active class from all buttons
+        filterBtns.forEach(b => b.classList.remove('active'));
+        
+        // Add active class to clicked button
+        this.classList.add('active');
+        
+        // Update current filter
+        currentFilter = this.dataset.tag;
+        
+        // Filter posts
+        filterPosts();
+      });
+    });
+  });
+</script> 

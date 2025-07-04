@@ -1,0 +1,346 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await post.render();
+---
+
+<BaseLayout title={post.data.title} description={post.data.description}>
+  <article class="blog-post">
+    <!-- Hero Section -->
+    <section class="post-hero">
+      <div class="container">
+        <div class="post-meta">
+          <span class="post-date">
+            {new Date(post.data.pubDate).toLocaleDateString('en-US', {
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric'
+            })}
+          </span>
+          <span class="post-author">by {post.data.author}</span>
+          {post.data.updatedDate && (
+            <span class="post-updated">
+              Updated: {new Date(post.data.updatedDate).toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+              })}
+            </span>
+          )}
+        </div>
+        
+        <h1 class="post-title">{post.data.title}</h1>
+        
+        <div class="post-tags">
+          {post.data.tags.map((tag: string) => (
+            <span class="post-tag">{tag}</span>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Featured Image -->
+    {post.data.image && (
+      <section class="post-image">
+        <div class="container">
+          <img src={post.data.image} alt={post.data.title} />
+        </div>
+      </section>
+    )}
+
+    <!-- Content -->
+    <section class="post-content">
+      <div class="container">
+        <div class="content-wrapper">
+          <Content />
+        </div>
+        
+        <!-- Share Section -->
+        <div class="share-section">
+          <h3>Share this article</h3>
+          <div class="share-buttons">
+            <a href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(post.data.title)}&url=${encodeURIComponent(Astro.url)}`} 
+               target="_blank" rel="noopener noreferrer" class="share-btn twitter">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+              </svg>
+              Twitter
+            </a>
+            
+            <a href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(Astro.url)}`} 
+               target="_blank" rel="noopener noreferrer" class="share-btn linkedin">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+              </svg>
+              LinkedIn
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </article>
+</BaseLayout>
+
+<style>
+  .blog-post {
+    background: var(--background-color);
+  }
+
+  .post-hero {
+    padding: 4rem 0 2rem;
+    background: linear-gradient(135deg, var(--background-color) 0%, #1a202c 100%);
+  }
+
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  .post-meta {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    font-size: 0.9rem;
+    color: var(--muted-text);
+    flex-wrap: wrap;
+  }
+
+  .post-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+    color: var(--text-color);
+  }
+
+  .post-tags {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .post-tag {
+    padding: 0.5rem 1rem;
+    background: rgba(242, 53, 81, 0.1);
+    border: 1px solid rgba(242, 53, 81, 0.3);
+    border-radius: 20px;
+    font-size: 0.9rem;
+    color: var(--primary-color);
+  }
+
+  .post-image {
+    padding: 2rem 0;
+  }
+
+  .post-image img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    border-radius: 12px;
+  }
+
+  .post-content {
+    padding: 3rem 0;
+  }
+
+  .content-wrapper {
+    line-height: 1.8;
+    color: var(--text-color);
+  }
+
+  /* Markdown Content Styling */
+  .content-wrapper h1,
+  .content-wrapper h2,
+  .content-wrapper h3,
+  .content-wrapper h4,
+  .content-wrapper h5,
+  .content-wrapper h6 {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    font-weight: bold;
+    color: var(--text-color);
+  }
+
+  .content-wrapper h1 {
+    font-size: 2rem;
+  }
+
+  .content-wrapper h2 {
+    font-size: 1.75rem;
+  }
+
+  .content-wrapper h3 {
+    font-size: 1.5rem;
+  }
+
+  .content-wrapper h4 {
+    font-size: 1.25rem;
+  }
+
+  .content-wrapper p {
+    margin-bottom: 1.5rem;
+  }
+
+  .content-wrapper ul,
+  .content-wrapper ol {
+    margin-bottom: 1.5rem;
+    padding-left: 2rem;
+  }
+
+  .content-wrapper li {
+    margin-bottom: 0.5rem;
+  }
+
+  .content-wrapper blockquote {
+    border-left: 4px solid var(--primary-color);
+    padding-left: 1.5rem;
+    margin: 2rem 0;
+    font-style: italic;
+    color: var(--muted-text);
+  }
+
+  .content-wrapper code {
+    background: #1a202c;
+    padding: 0.2rem 0.4rem;
+    border-radius: 4px;
+    font-family: 'Fira Code', monospace;
+    font-size: 0.9rem;
+    color: #e2e8f0;
+  }
+
+  .content-wrapper pre {
+    background: #1a202c;
+    padding: 1.5rem;
+    border-radius: 8px;
+    overflow-x: auto;
+    margin: 2rem 0;
+    border: 1px solid #2d3748;
+  }
+
+  .content-wrapper pre code {
+    background: none;
+    padding: 0;
+    color: #e2e8f0;
+  }
+
+  .content-wrapper a {
+    color: var(--primary-color);
+    text-decoration: none;
+  }
+
+  .content-wrapper a:hover {
+    text-decoration: underline;
+  }
+
+  .content-wrapper strong {
+    font-weight: bold;
+    color: var(--text-color);
+  }
+
+  .content-wrapper em {
+    font-style: italic;
+  }
+
+  .content-wrapper table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 2rem 0;
+  }
+
+  .content-wrapper th,
+  .content-wrapper td {
+    padding: 0.75rem;
+    border: 1px solid #2d3748;
+    text-align: left;
+  }
+
+  .content-wrapper th {
+    background: #1a202c;
+    font-weight: bold;
+  }
+
+  .content-wrapper img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin: 2rem 0;
+  }
+
+  .share-section {
+    margin-top: 4rem;
+    padding-top: 2rem;
+    border-top: 1px solid #2d3748;
+  }
+
+  .share-section h3 {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    color: var(--text-color);
+  }
+
+  .share-buttons {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .share-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+  }
+
+  .share-btn.twitter {
+    background: #1da1f2;
+    color: white;
+  }
+
+  .share-btn.twitter:hover {
+    background: #1a91da;
+    transform: translateY(-2px);
+  }
+
+  .share-btn.linkedin {
+    background: #0077b5;
+    color: white;
+  }
+
+  .share-btn.linkedin:hover {
+    background: #006097;
+    transform: translateY(-2px);
+  }
+
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .post-title {
+      font-size: 2rem;
+    }
+
+    .post-meta {
+      justify-content: center;
+    }
+
+    .post-tags {
+      justify-content: center;
+    }
+
+    .share-buttons {
+      flex-direction: column;
+    }
+  }
+</style> 

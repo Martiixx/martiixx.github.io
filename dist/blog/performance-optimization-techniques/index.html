@@ -1,0 +1,260 @@
+<!DOCTYPE html><html lang="en" data-astro-cid-37fxchfa> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="description" content="Learn proven techniques for optimizing application performance, from database queries to caching strategies. Real-world examples from systems processing millions of requests daily."><link rel="icon" type="image/svg+xml" href="/favicon.svg"><title>Performance Optimization Techniques for High-Traffic Applications</title><link rel="stylesheet" href="/_astro/about.DNZjDhQ-.css">
+<link rel="stylesheet" href="/_astro/_slug_.BM-1Ksqe.css"></head> <body data-astro-cid-37fxchfa> <header data-astro-cid-37fxchfa> <nav data-astro-cid-37fxchfa> <div class="nav-content" data-astro-cid-37fxchfa> <a href="/" class="logo" data-astro-cid-37fxchfa> <img src="https://pub-55f502b1bb8a47b18e001af1f25c9d6c.r2.dev/profile-picture.jpeg" class="profile-pic" data-astro-cid-37fxchfa> <span data-astro-cid-37fxchfa>Performance Optimization Techniques for High-Traffic Applications</span> </a> <div class="nav-links" data-astro-cid-37fxchfa> <a href="/" data-astro-cid-37fxchfa>Home</a> <a href="/projects" data-astro-cid-37fxchfa>Projects</a> <a href="/blog" data-astro-cid-37fxchfa>Blog</a> <a href="/about" data-astro-cid-37fxchfa>About</a> <a href="/contact" data-astro-cid-37fxchfa>Contact</a> </div> <button class="menu-btn" aria-label="Open menu" onclick="toggleMenu()" data-astro-cid-37fxchfa> <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-37fxchfa><line x1="3" y1="12" x2="21" y2="12" data-astro-cid-37fxchfa></line><line x1="3" y1="6" x2="21" y2="6" data-astro-cid-37fxchfa></line><line x1="3" y1="18" x2="21" y2="18" data-astro-cid-37fxchfa></line></svg> </button> </div> <div id="mobile-menu" class="mobile-menu" data-astro-cid-37fxchfa> <a href="/" onclick="toggleMenu()" data-astro-cid-37fxchfa>Home</a> <a href="/projects" onclick="toggleMenu()" data-astro-cid-37fxchfa>Projects</a> <a href="/blog" onclick="toggleMenu()" data-astro-cid-37fxchfa>Blog</a> <a href="/about" onclick="toggleMenu()" data-astro-cid-37fxchfa>About</a> <a href="/contact" onclick="toggleMenu()" data-astro-cid-37fxchfa>Contact</a> </div> </nav> </header> <main data-astro-cid-37fxchfa>  <article class="blog-post" data-astro-cid-4sn4zg3r> <!-- Hero Section --> <section class="post-hero" data-astro-cid-4sn4zg3r> <div class="container" data-astro-cid-4sn4zg3r> <div class="post-meta" data-astro-cid-4sn4zg3r> <span class="post-date" data-astro-cid-4sn4zg3r> January 9, 2024 </span> <span class="post-author" data-astro-cid-4sn4zg3r>by Martin Carrasco</span> <span class="post-updated" data-astro-cid-4sn4zg3r>
+Updated: January 14, 2024 </span> </div> <h1 class="post-title" data-astro-cid-4sn4zg3r>Performance Optimization Techniques for High-Traffic Applications</h1> <div class="post-tags" data-astro-cid-4sn4zg3r> <span class="post-tag" data-astro-cid-4sn4zg3r>performance</span><span class="post-tag" data-astro-cid-4sn4zg3r>optimization</span><span class="post-tag" data-astro-cid-4sn4zg3r>backend</span><span class="post-tag" data-astro-cid-4sn4zg3r>caching</span><span class="post-tag" data-astro-cid-4sn4zg3r>database</span> </div> </div> </section> <!-- Featured Image --> <section class="post-image" data-astro-cid-4sn4zg3r> <div class="container" data-astro-cid-4sn4zg3r> <img src="/blog/performance-optimization.jpg" alt="Performance Optimization Techniques for High-Traffic Applications" data-astro-cid-4sn4zg3r> </div> </section> <!-- Content --> <section class="post-content" data-astro-cid-4sn4zg3r> <div class="container" data-astro-cid-4sn4zg3r> <div class="content-wrapper" data-astro-cid-4sn4zg3r> <h1 id="performance-optimization-techniques-for-high-traffic-applications">Performance Optimization Techniques for High-Traffic Applications</h1>
+<p>Performance optimization is crucial for applications that need to handle high traffic and process large amounts of data. In this post, I’ll share the techniques I’ve used to optimize systems processing millions of requests daily.</p>
+<h2 id="understanding-performance-bottlenecks">Understanding Performance Bottlenecks</h2>
+<p>Before diving into optimization techniques, it’s essential to identify where the bottlenecks are:</p>
+<ol>
+<li><strong>Database Queries</strong>: Often the biggest performance killer</li>
+<li><strong>Network Latency</strong>: External API calls and service communication</li>
+<li><strong>Memory Usage</strong>: Inefficient data structures and memory leaks</li>
+<li><strong>CPU Intensive Operations</strong>: Complex calculations and data processing</li>
+</ol>
+<h2 id="technique-1-database-query-optimization">Technique 1: Database Query Optimization</h2>
+<h3 id="indexing-strategy">Indexing Strategy</h3>
+<p>Proper indexing can dramatically improve query performance:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sql"><code><span class="line"><span style="color:#6A737D">-- Before: Full table scan</span></span>
+<span class="line"><span style="color:#F97583">SELECT</span><span style="color:#F97583"> *</span><span style="color:#F97583"> FROM</span><span style="color:#E1E4E8"> orders </span><span style="color:#F97583">WHERE</span><span style="color:#E1E4E8"> customer_id </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> 123</span><span style="color:#F97583"> AND</span><span style="color:#F97583"> status</span><span style="color:#F97583"> =</span><span style="color:#9ECBFF"> 'pending'</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">-- After: Proper indexing</span></span>
+<span class="line"><span style="color:#F97583">CREATE</span><span style="color:#F97583"> INDEX</span><span style="color:#B392F0"> idx_orders_customer_status</span><span style="color:#F97583"> ON</span><span style="color:#E1E4E8"> orders(customer_id, </span><span style="color:#F97583">status</span><span style="color:#E1E4E8">);</span></span></code></pre>
+<h3 id="query-optimization">Query Optimization</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#6A737D">// Before: N+1 query problem</span></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> orders</span><span style="color:#F97583"> =</span><span style="color:#F97583"> await</span><span style="color:#E1E4E8"> Order.</span><span style="color:#B392F0">find</span><span style="color:#E1E4E8">({ customerId: </span><span style="color:#79B8FF">123</span><span style="color:#E1E4E8"> });</span></span>
+<span class="line"><span style="color:#F97583">for</span><span style="color:#E1E4E8"> (</span><span style="color:#F97583">const</span><span style="color:#79B8FF"> order</span><span style="color:#F97583"> of</span><span style="color:#E1E4E8"> orders) {</span></span>
+<span class="line"><span style="color:#F97583">  const</span><span style="color:#79B8FF"> customer</span><span style="color:#F97583"> =</span><span style="color:#F97583"> await</span><span style="color:#E1E4E8"> Customer.</span><span style="color:#B392F0">findById</span><span style="color:#E1E4E8">(order.customerId); </span><span style="color:#6A737D">// N queries!</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">// After: Single query with join</span></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> orders</span><span style="color:#F97583"> =</span><span style="color:#F97583"> await</span><span style="color:#E1E4E8"> Order.</span><span style="color:#B392F0">aggregate</span><span style="color:#E1E4E8">([</span></span>
+<span class="line"><span style="color:#E1E4E8">  { $match: { customerId: </span><span style="color:#79B8FF">123</span><span style="color:#E1E4E8"> } },</span></span>
+<span class="line"><span style="color:#E1E4E8">  {</span></span>
+<span class="line"><span style="color:#E1E4E8">    $lookup: {</span></span>
+<span class="line"><span style="color:#E1E4E8">      from: </span><span style="color:#9ECBFF">'customers'</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">      localField: </span><span style="color:#9ECBFF">'customerId'</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">      foreignField: </span><span style="color:#9ECBFF">'_id'</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">      as: </span><span style="color:#9ECBFF">'customer'</span></span>
+<span class="line"><span style="color:#E1E4E8">    }</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span>
+<span class="line"><span style="color:#E1E4E8">]);</span></span></code></pre>
+<h3 id="connection-pooling">Connection Pooling</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#6A737D">// Configure connection pool</span></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> pool</span><span style="color:#F97583"> =</span><span style="color:#F97583"> new</span><span style="color:#B392F0"> Pool</span><span style="color:#E1E4E8">({</span></span>
+<span class="line"><span style="color:#E1E4E8">  host: </span><span style="color:#9ECBFF">'localhost'</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">  database: </span><span style="color:#9ECBFF">'myapp'</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">  user: </span><span style="color:#9ECBFF">'user'</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">  password: </span><span style="color:#9ECBFF">'password'</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">  max: </span><span style="color:#79B8FF">20</span><span style="color:#E1E4E8">, </span><span style="color:#6A737D">// Maximum number of connections</span></span>
+<span class="line"><span style="color:#E1E4E8">  idleTimeoutMillis: </span><span style="color:#79B8FF">30000</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">  connectionTimeoutMillis: </span><span style="color:#79B8FF">2000</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">});</span></span></code></pre>
+<h2 id="technique-2-caching-strategies">Technique 2: Caching Strategies</h2>
+<h3 id="redis-caching">Redis Caching</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#E1E4E8">@</span><span style="color:#B392F0">Injectable</span><span style="color:#E1E4E8">()</span></span>
+<span class="line"><span style="color:#F97583">export</span><span style="color:#F97583"> class</span><span style="color:#B392F0"> UserService</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#F97583">  constructor</span><span style="color:#E1E4E8">(</span></span>
+<span class="line"><span style="color:#F97583">    private</span><span style="color:#FFAB70"> userRepository</span><span style="color:#F97583">:</span><span style="color:#B392F0"> UserRepository</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#F97583">    private</span><span style="color:#FFAB70"> redisService</span><span style="color:#F97583">:</span><span style="color:#B392F0"> RedisService</span></span>
+<span class="line"><span style="color:#E1E4E8">  ) {}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">  async</span><span style="color:#B392F0"> getUserById</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">id</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> string</span><span style="color:#E1E4E8">)</span><span style="color:#F97583">:</span><span style="color:#B392F0"> Promise</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">User</span><span style="color:#E1E4E8">> {</span></span>
+<span class="line"><span style="color:#6A737D">    // Try cache first</span></span>
+<span class="line"><span style="color:#F97583">    const</span><span style="color:#79B8FF"> cached</span><span style="color:#F97583"> =</span><span style="color:#F97583"> await</span><span style="color:#79B8FF"> this</span><span style="color:#E1E4E8">.redisService.</span><span style="color:#B392F0">get</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">`user:${</span><span style="color:#E1E4E8">id</span><span style="color:#9ECBFF">}`</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#F97583">    if</span><span style="color:#E1E4E8"> (cached) {</span></span>
+<span class="line"><span style="color:#F97583">      return</span><span style="color:#79B8FF"> JSON</span><span style="color:#E1E4E8">.</span><span style="color:#B392F0">parse</span><span style="color:#E1E4E8">(cached);</span></span>
+<span class="line"><span style="color:#E1E4E8">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">    // Fetch from database</span></span>
+<span class="line"><span style="color:#F97583">    const</span><span style="color:#79B8FF"> user</span><span style="color:#F97583"> =</span><span style="color:#F97583"> await</span><span style="color:#79B8FF"> this</span><span style="color:#E1E4E8">.userRepository.</span><span style="color:#B392F0">findById</span><span style="color:#E1E4E8">(id);</span></span>
+<span class="line"><span style="color:#E1E4E8">    </span></span>
+<span class="line"><span style="color:#6A737D">    // Cache for 1 hour</span></span>
+<span class="line"><span style="color:#F97583">    await</span><span style="color:#79B8FF"> this</span><span style="color:#E1E4E8">.redisService.</span><span style="color:#B392F0">setex</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">`user:${</span><span style="color:#E1E4E8">id</span><span style="color:#9ECBFF">}`</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">3600</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">JSON</span><span style="color:#E1E4E8">.</span><span style="color:#B392F0">stringify</span><span style="color:#E1E4E8">(user));</span></span>
+<span class="line"><span style="color:#E1E4E8">    </span></span>
+<span class="line"><span style="color:#F97583">    return</span><span style="color:#E1E4E8"> user;</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<h3 id="application-level-caching">Application-Level Caching</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#E1E4E8">@</span><span style="color:#B392F0">Injectable</span><span style="color:#E1E4E8">()</span></span>
+<span class="line"><span style="color:#F97583">export</span><span style="color:#F97583"> class</span><span style="color:#B392F0"> ProductService</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#F97583">  private</span><span style="color:#FFAB70"> cache</span><span style="color:#F97583"> =</span><span style="color:#F97583"> new</span><span style="color:#B392F0"> Map</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#79B8FF">string</span><span style="color:#E1E4E8">, { </span><span style="color:#FFAB70">data</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> any</span><span style="color:#E1E4E8">; </span><span style="color:#FFAB70">timestamp</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> number</span><span style="color:#E1E4E8"> }>();</span></span>
+<span class="line"><span style="color:#F97583">  private</span><span style="color:#F97583"> readonly</span><span style="color:#FFAB70"> CACHE_TTL</span><span style="color:#F97583"> =</span><span style="color:#79B8FF"> 5</span><span style="color:#F97583"> *</span><span style="color:#79B8FF"> 60</span><span style="color:#F97583"> *</span><span style="color:#79B8FF"> 1000</span><span style="color:#E1E4E8">; </span><span style="color:#6A737D">// 5 minutes</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">  async</span><span style="color:#B392F0"> getProduct</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">id</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> string</span><span style="color:#E1E4E8">)</span><span style="color:#F97583">:</span><span style="color:#B392F0"> Promise</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">Product</span><span style="color:#E1E4E8">> {</span></span>
+<span class="line"><span style="color:#F97583">    const</span><span style="color:#79B8FF"> cached</span><span style="color:#F97583"> =</span><span style="color:#79B8FF"> this</span><span style="color:#E1E4E8">.cache.</span><span style="color:#B392F0">get</span><span style="color:#E1E4E8">(id);</span></span>
+<span class="line"><span style="color:#F97583">    const</span><span style="color:#79B8FF"> now</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> Date.</span><span style="color:#B392F0">now</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">    if</span><span style="color:#E1E4E8"> (cached </span><span style="color:#F97583">&#x26;&#x26;</span><span style="color:#E1E4E8"> (now </span><span style="color:#F97583">-</span><span style="color:#E1E4E8"> cached.timestamp) </span><span style="color:#F97583">&#x3C;</span><span style="color:#79B8FF"> this</span><span style="color:#E1E4E8">.</span><span style="color:#79B8FF">CACHE_TTL</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#F97583">      return</span><span style="color:#E1E4E8"> cached.data;</span></span>
+<span class="line"><span style="color:#E1E4E8">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">    const</span><span style="color:#79B8FF"> product</span><span style="color:#F97583"> =</span><span style="color:#F97583"> await</span><span style="color:#79B8FF"> this</span><span style="color:#E1E4E8">.productRepository.</span><span style="color:#B392F0">findById</span><span style="color:#E1E4E8">(id);</span></span>
+<span class="line"><span style="color:#79B8FF">    this</span><span style="color:#E1E4E8">.cache.</span><span style="color:#B392F0">set</span><span style="color:#E1E4E8">(id, { data: product, timestamp: now });</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">    return</span><span style="color:#E1E4E8"> product;</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<h2 id="technique-3-asynchronous-processing">Technique 3: Asynchronous Processing</h2>
+<h3 id="background-jobs">Background Jobs</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#E1E4E8">@</span><span style="color:#B392F0">Injectable</span><span style="color:#E1E4E8">()</span></span>
+<span class="line"><span style="color:#F97583">export</span><span style="color:#F97583"> class</span><span style="color:#B392F0"> EmailService</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#F97583">  constructor</span><span style="color:#E1E4E8">(</span><span style="color:#F97583">private</span><span style="color:#FFAB70"> queueService</span><span style="color:#F97583">:</span><span style="color:#B392F0"> QueueService</span><span style="color:#E1E4E8">) {}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">  async</span><span style="color:#B392F0"> sendWelcomeEmail</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">userId</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> string</span><span style="color:#E1E4E8">)</span><span style="color:#F97583">:</span><span style="color:#B392F0"> Promise</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#79B8FF">void</span><span style="color:#E1E4E8">> {</span></span>
+<span class="line"><span style="color:#6A737D">    // Don't block the request</span></span>
+<span class="line"><span style="color:#F97583">    await</span><span style="color:#79B8FF"> this</span><span style="color:#E1E4E8">.queueService.</span><span style="color:#B392F0">add</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'send-welcome-email'</span><span style="color:#E1E4E8">, { userId });</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">// Worker</span></span>
+<span class="line"><span style="color:#E1E4E8">@</span><span style="color:#B392F0">Processor</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'send-welcome-email'</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#F97583">export</span><span style="color:#F97583"> class</span><span style="color:#B392F0"> EmailProcessor</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#F97583">  async</span><span style="color:#B392F0"> process</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">job</span><span style="color:#F97583">:</span><span style="color:#B392F0"> Job</span><span style="color:#E1E4E8">&#x3C;{ </span><span style="color:#FFAB70">userId</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> string</span><span style="color:#E1E4E8"> }>) {</span></span>
+<span class="line"><span style="color:#F97583">    const</span><span style="color:#79B8FF"> user</span><span style="color:#F97583"> =</span><span style="color:#F97583"> await</span><span style="color:#79B8FF"> this</span><span style="color:#E1E4E8">.userService.</span><span style="color:#B392F0">findById</span><span style="color:#E1E4E8">(job.data.userId);</span></span>
+<span class="line"><span style="color:#F97583">    await</span><span style="color:#79B8FF"> this</span><span style="color:#E1E4E8">.emailProvider.</span><span style="color:#B392F0">sendWelcomeEmail</span><span style="color:#E1E4E8">(user.email);</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<h3 id="event-driven-processing">Event-Driven Processing</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#E1E4E8">@</span><span style="color:#B392F0">Injectable</span><span style="color:#E1E4E8">()</span></span>
+<span class="line"><span style="color:#F97583">export</span><span style="color:#F97583"> class</span><span style="color:#B392F0"> OrderService</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#F97583">  constructor</span><span style="color:#E1E4E8">(</span><span style="color:#F97583">private</span><span style="color:#FFAB70"> eventBus</span><span style="color:#F97583">:</span><span style="color:#B392F0"> EventBus</span><span style="color:#E1E4E8">) {}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">  async</span><span style="color:#B392F0"> createOrder</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">orderData</span><span style="color:#F97583">:</span><span style="color:#B392F0"> CreateOrderDto</span><span style="color:#E1E4E8">)</span><span style="color:#F97583">:</span><span style="color:#B392F0"> Promise</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">Order</span><span style="color:#E1E4E8">> {</span></span>
+<span class="line"><span style="color:#F97583">    const</span><span style="color:#79B8FF"> order</span><span style="color:#F97583"> =</span><span style="color:#F97583"> await</span><span style="color:#79B8FF"> this</span><span style="color:#E1E4E8">.orderRepository.</span><span style="color:#B392F0">create</span><span style="color:#E1E4E8">(orderData);</span></span>
+<span class="line"><span style="color:#E1E4E8">    </span></span>
+<span class="line"><span style="color:#6A737D">    // Publish event for async processing</span></span>
+<span class="line"><span style="color:#79B8FF">    this</span><span style="color:#E1E4E8">.eventBus.</span><span style="color:#B392F0">publish</span><span style="color:#E1E4E8">(</span><span style="color:#F97583">new</span><span style="color:#B392F0"> OrderCreatedEvent</span><span style="color:#E1E4E8">(order));</span></span>
+<span class="line"><span style="color:#E1E4E8">    </span></span>
+<span class="line"><span style="color:#F97583">    return</span><span style="color:#E1E4E8"> order;</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">@</span><span style="color:#B392F0">EventsHandler</span><span style="color:#E1E4E8">(OrderCreatedEvent)</span></span>
+<span class="line"><span style="color:#F97583">export</span><span style="color:#F97583"> class</span><span style="color:#B392F0"> OrderEventHandler</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#F97583">  async</span><span style="color:#B392F0"> handle</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">event</span><span style="color:#F97583">:</span><span style="color:#B392F0"> OrderCreatedEvent</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#6A737D">    // Process in background</span></span>
+<span class="line"><span style="color:#F97583">    await</span><span style="color:#79B8FF"> this</span><span style="color:#E1E4E8">.inventoryService.</span><span style="color:#B392F0">updateStock</span><span style="color:#E1E4E8">(event.order.items);</span></span>
+<span class="line"><span style="color:#F97583">    await</span><span style="color:#79B8FF"> this</span><span style="color:#E1E4E8">.notificationService.</span><span style="color:#B392F0">sendOrderConfirmation</span><span style="color:#E1E4E8">(event.order);</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<h2 id="technique-4-load-balancing-and-scaling">Technique 4: Load Balancing and Scaling</h2>
+<h3 id="horizontal-scaling">Horizontal Scaling</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#6A737D">// Use PM2 for process management</span></span>
+<span class="line"><span style="color:#79B8FF">module</span><span style="color:#E1E4E8">.</span><span style="color:#79B8FF">exports</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#E1E4E8">  apps: [{</span></span>
+<span class="line"><span style="color:#E1E4E8">    name: </span><span style="color:#9ECBFF">'api'</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">    script: </span><span style="color:#9ECBFF">'dist/main.js'</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">    instances: </span><span style="color:#9ECBFF">'max'</span><span style="color:#E1E4E8">, </span><span style="color:#6A737D">// Use all CPU cores</span></span>
+<span class="line"><span style="color:#E1E4E8">    exec_mode: </span><span style="color:#9ECBFF">'cluster'</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">    env: {</span></span>
+<span class="line"><span style="color:#E1E4E8">      NODE_ENV: </span><span style="color:#9ECBFF">'production'</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">      PORT: </span><span style="color:#79B8FF">3000</span></span>
+<span class="line"><span style="color:#E1E4E8">    }</span></span>
+<span class="line"><span style="color:#E1E4E8">  }]</span></span>
+<span class="line"><span style="color:#E1E4E8">};</span></span></code></pre>
+<h3 id="load-balancing-with-nginx">Load Balancing with Nginx</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="nginx"><code><span class="line"><span style="color:#F97583">upstream</span><span style="color:#B392F0"> api_servers </span><span style="color:#E1E4E8">{</span></span>
+<span class="line"><span style="color:#F97583">    server</span><span style="color:#E1E4E8"> 127.0.0.1:3001;</span></span>
+<span class="line"><span style="color:#F97583">    server</span><span style="color:#E1E4E8"> 127.0.0.1:3002;</span></span>
+<span class="line"><span style="color:#F97583">    server</span><span style="color:#E1E4E8"> 127.0.0.1:3003;</span></span>
+<span class="line"><span style="color:#F97583">    server</span><span style="color:#E1E4E8"> 127.0.0.1:3004;</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">server</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#F97583">    listen </span><span style="color:#79B8FF">80</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#F97583">    server_name </span><span style="color:#E1E4E8">api.example.com;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">    location</span><span style="color:#B392F0"> / </span><span style="color:#E1E4E8">{</span></span>
+<span class="line"><span style="color:#F97583">        proxy_pass </span><span style="color:#E1E4E8">http://api_servers;</span></span>
+<span class="line"><span style="color:#F97583">        proxy_set_header </span><span style="color:#E1E4E8">Host $host;</span></span>
+<span class="line"><span style="color:#F97583">        proxy_set_header </span><span style="color:#E1E4E8">X-Real-IP $remote_addr;</span></span>
+<span class="line"><span style="color:#E1E4E8">    }</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<h2 id="technique-5-memory-optimization">Technique 5: Memory Optimization</h2>
+<h3 id="efficient-data-structures">Efficient Data Structures</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#6A737D">// Before: Inefficient object creation</span></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> users</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> [];</span></span>
+<span class="line"><span style="color:#F97583">for</span><span style="color:#E1E4E8"> (</span><span style="color:#F97583">let</span><span style="color:#E1E4E8"> i </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> 0</span><span style="color:#E1E4E8">; i </span><span style="color:#F97583">&#x3C;</span><span style="color:#79B8FF"> 10000</span><span style="color:#E1E4E8">; i</span><span style="color:#F97583">++</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#E1E4E8">  users.</span><span style="color:#B392F0">push</span><span style="color:#E1E4E8">({</span></span>
+<span class="line"><span style="color:#E1E4E8">    id: i,</span></span>
+<span class="line"><span style="color:#E1E4E8">    name: </span><span style="color:#9ECBFF">`User ${</span><span style="color:#E1E4E8">i</span><span style="color:#9ECBFF">}`</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">    email: </span><span style="color:#9ECBFF">`user${</span><span style="color:#E1E4E8">i</span><span style="color:#9ECBFF">}@example.com`</span></span>
+<span class="line"><span style="color:#E1E4E8">  });</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">// After: Use Map for better performance</span></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> userMap</span><span style="color:#F97583"> =</span><span style="color:#F97583"> new</span><span style="color:#B392F0"> Map</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"><span style="color:#F97583">for</span><span style="color:#E1E4E8"> (</span><span style="color:#F97583">let</span><span style="color:#E1E4E8"> i </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> 0</span><span style="color:#E1E4E8">; i </span><span style="color:#F97583">&#x3C;</span><span style="color:#79B8FF"> 10000</span><span style="color:#E1E4E8">; i</span><span style="color:#F97583">++</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#E1E4E8">  userMap.</span><span style="color:#B392F0">set</span><span style="color:#E1E4E8">(i, {</span></span>
+<span class="line"><span style="color:#E1E4E8">    id: i,</span></span>
+<span class="line"><span style="color:#E1E4E8">    name: </span><span style="color:#9ECBFF">`User ${</span><span style="color:#E1E4E8">i</span><span style="color:#9ECBFF">}`</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">    email: </span><span style="color:#9ECBFF">`user${</span><span style="color:#E1E4E8">i</span><span style="color:#9ECBFF">}@example.com`</span></span>
+<span class="line"><span style="color:#E1E4E8">  });</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<h3 id="memory-leak-prevention">Memory Leak Prevention</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#E1E4E8">@</span><span style="color:#B392F0">Injectable</span><span style="color:#E1E4E8">()</span></span>
+<span class="line"><span style="color:#F97583">export</span><span style="color:#F97583"> class</span><span style="color:#B392F0"> DataProcessor</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#F97583">  private</span><span style="color:#FFAB70"> cache</span><span style="color:#F97583"> =</span><span style="color:#F97583"> new</span><span style="color:#B392F0"> WeakMap</span><span style="color:#E1E4E8">(); </span><span style="color:#6A737D">// Automatically garbage collected</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#B392F0">  processData</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">data</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> any</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#F97583">    if</span><span style="color:#E1E4E8"> (</span><span style="color:#79B8FF">this</span><span style="color:#E1E4E8">.cache.</span><span style="color:#B392F0">has</span><span style="color:#E1E4E8">(data)) {</span></span>
+<span class="line"><span style="color:#F97583">      return</span><span style="color:#79B8FF"> this</span><span style="color:#E1E4E8">.cache.</span><span style="color:#B392F0">get</span><span style="color:#E1E4E8">(data);</span></span>
+<span class="line"><span style="color:#E1E4E8">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">    const</span><span style="color:#79B8FF"> result</span><span style="color:#F97583"> =</span><span style="color:#79B8FF"> this</span><span style="color:#E1E4E8">.</span><span style="color:#B392F0">heavyComputation</span><span style="color:#E1E4E8">(data);</span></span>
+<span class="line"><span style="color:#79B8FF">    this</span><span style="color:#E1E4E8">.cache.</span><span style="color:#B392F0">set</span><span style="color:#E1E4E8">(data, result);</span></span>
+<span class="line"><span style="color:#F97583">    return</span><span style="color:#E1E4E8"> result;</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<h2 id="technique-6-monitoring-and-profiling">Technique 6: Monitoring and Profiling</h2>
+<h3 id="performance-monitoring">Performance Monitoring</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#E1E4E8">@</span><span style="color:#B392F0">Injectable</span><span style="color:#E1E4E8">()</span></span>
+<span class="line"><span style="color:#F97583">export</span><span style="color:#F97583"> class</span><span style="color:#B392F0"> PerformanceMonitor</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#F97583">  private</span><span style="color:#FFAB70"> metrics</span><span style="color:#F97583"> =</span><span style="color:#F97583"> new</span><span style="color:#B392F0"> Map</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#79B8FF">string</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">number</span><span style="color:#E1E4E8">[]>();</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">  @</span><span style="color:#B392F0">UseInterceptors</span><span style="color:#E1E4E8">(</span><span style="color:#F97583">new</span><span style="color:#B392F0"> PerformanceInterceptor</span><span style="color:#E1E4E8">())</span></span>
+<span class="line"><span style="color:#F97583">  async</span><span style="color:#B392F0"> trackPerformance</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">methodName</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> string</span><span style="color:#E1E4E8">, </span><span style="color:#FFAB70">duration</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> number</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#F97583">    if</span><span style="color:#E1E4E8"> (</span><span style="color:#F97583">!</span><span style="color:#79B8FF">this</span><span style="color:#E1E4E8">.metrics.</span><span style="color:#B392F0">has</span><span style="color:#E1E4E8">(methodName)) {</span></span>
+<span class="line"><span style="color:#79B8FF">      this</span><span style="color:#E1E4E8">.metrics.</span><span style="color:#B392F0">set</span><span style="color:#E1E4E8">(methodName, []);</span></span>
+<span class="line"><span style="color:#E1E4E8">    }</span></span>
+<span class="line"><span style="color:#E1E4E8">    </span></span>
+<span class="line"><span style="color:#79B8FF">    this</span><span style="color:#E1E4E8">.metrics.</span><span style="color:#B392F0">get</span><span style="color:#E1E4E8">(methodName)</span><span style="color:#F97583">!</span><span style="color:#E1E4E8">.</span><span style="color:#B392F0">push</span><span style="color:#E1E4E8">(duration);</span></span>
+<span class="line"><span style="color:#E1E4E8">    </span></span>
+<span class="line"><span style="color:#6A737D">    // Alert if performance degrades</span></span>
+<span class="line"><span style="color:#F97583">    const</span><span style="color:#79B8FF"> avg</span><span style="color:#F97583"> =</span><span style="color:#79B8FF"> this</span><span style="color:#E1E4E8">.</span><span style="color:#B392F0">calculateAverage</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">this</span><span style="color:#E1E4E8">.metrics.</span><span style="color:#B392F0">get</span><span style="color:#E1E4E8">(methodName)</span><span style="color:#F97583">!</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#F97583">    if</span><span style="color:#E1E4E8"> (avg </span><span style="color:#F97583">></span><span style="color:#79B8FF"> 1000</span><span style="color:#E1E4E8">) { </span><span style="color:#6A737D">// 1 second threshold</span></span>
+<span class="line"><span style="color:#79B8FF">      this</span><span style="color:#E1E4E8">.</span><span style="color:#B392F0">alertSlowMethod</span><span style="color:#E1E4E8">(methodName, avg);</span></span>
+<span class="line"><span style="color:#E1E4E8">    }</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<h3 id="database-query-monitoring">Database Query Monitoring</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="typescript"><code><span class="line"><span style="color:#6A737D">// Log slow queries</span></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> slowQueryThreshold</span><span style="color:#F97583"> =</span><span style="color:#79B8FF"> 100</span><span style="color:#E1E4E8">; </span><span style="color:#6A737D">// ms</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">mongoose.</span><span style="color:#B392F0">set</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'debug'</span><span style="color:#E1E4E8">, (</span><span style="color:#FFAB70">collectionName</span><span style="color:#E1E4E8">, </span><span style="color:#FFAB70">methodName</span><span style="color:#E1E4E8">, </span><span style="color:#F97583">...</span><span style="color:#FFAB70">methodArgs</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#F97583">  const</span><span style="color:#79B8FF"> start</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> Date.</span><span style="color:#B392F0">now</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"><span style="color:#E1E4E8">  </span></span>
+<span class="line"><span style="color:#F97583">  return</span><span style="color:#F97583"> function</span><span style="color:#E1E4E8">() {</span></span>
+<span class="line"><span style="color:#F97583">    const</span><span style="color:#79B8FF"> duration</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> Date.</span><span style="color:#B392F0">now</span><span style="color:#E1E4E8">() </span><span style="color:#F97583">-</span><span style="color:#E1E4E8"> start;</span></span>
+<span class="line"><span style="color:#F97583">    if</span><span style="color:#E1E4E8"> (duration </span><span style="color:#F97583">></span><span style="color:#E1E4E8"> slowQueryThreshold) {</span></span>
+<span class="line"><span style="color:#E1E4E8">      console.</span><span style="color:#B392F0">warn</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">`Slow query detected: ${</span><span style="color:#E1E4E8">collectionName</span><span style="color:#9ECBFF">}.${</span><span style="color:#E1E4E8">methodName</span><span style="color:#9ECBFF">} took ${</span><span style="color:#E1E4E8">duration</span><span style="color:#9ECBFF">}ms`</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#E1E4E8">    }</span></span>
+<span class="line"><span style="color:#E1E4E8">  };</span></span>
+<span class="line"><span style="color:#E1E4E8">});</span></span></code></pre>
+<h2 id="best-practices-summary">Best Practices Summary</h2>
+<ol>
+<li><strong>Measure First</strong>: Always profile before optimizing</li>
+<li><strong>Cache Strategically</strong>: Cache at multiple levels (application, database, CDN)</li>
+<li><strong>Use Async Processing</strong>: Don’t block requests with heavy operations</li>
+<li><strong>Optimize Database</strong>: Index properly, avoid N+1 queries</li>
+<li><strong>Monitor Continuously</strong>: Set up alerts for performance degradation</li>
+<li><strong>Scale Horizontally</strong>: Use load balancing and multiple instances</li>
+</ol>
+<h2 id="conclusion">Conclusion</h2>
+<p>Performance optimization is an ongoing process. Start by identifying bottlenecks, implement these techniques incrementally, and continuously monitor your application’s performance.</p>
+<p>Remember, premature optimization is the root of all evil. Focus on the areas that will have the biggest impact on your specific use case.</p>
+<hr>
+<p><em>What performance optimization techniques have you found most effective? Share your experiences in the comments below!</em></p> </div> <!-- Share Section --> <div class="share-section" data-astro-cid-4sn4zg3r> <h3 data-astro-cid-4sn4zg3r>Share this article</h3> <div class="share-buttons" data-astro-cid-4sn4zg3r> <a href="https://twitter.com/intent/tweet?text=Performance%20Optimization%20Techniques%20for%20High-Traffic%20Applications&url=https%3A%2F%2Fmartiixx.github.io%2Fblog%2Fperformance-optimization-techniques%2F" target="_blank" rel="noopener noreferrer" class="share-btn twitter" data-astro-cid-4sn4zg3r> <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" data-astro-cid-4sn4zg3r> <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z" data-astro-cid-4sn4zg3r></path> </svg>
+Twitter
+</a> <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fmartiixx.github.io%2Fblog%2Fperformance-optimization-techniques%2F" target="_blank" rel="noopener noreferrer" class="share-btn linkedin" data-astro-cid-4sn4zg3r> <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" data-astro-cid-4sn4zg3r> <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" data-astro-cid-4sn4zg3r></path> </svg>
+LinkedIn
+</a> </div> </div> </div> </section> </article>  </main> <footer data-astro-cid-37fxchfa> <div class="footer-content" data-astro-cid-37fxchfa> <p data-astro-cid-37fxchfa>&copy; 2025 Martin Carrasco. All rights reserved.</p> </div> </footer>  </body> </html> 
