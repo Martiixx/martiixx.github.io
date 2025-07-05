@@ -21,12 +21,69 @@ const GA_MEASUREMENT_ID = 'G-RJSZ5SN20B';
 <!-- Privacy Notice -->
 <div id="privacy-notice" class="privacy-notice" style="display: none;">
   <div class="privacy-content">
-    <p>This website uses cookies and analytics to improve your experience. By continuing to use this site, you consent to our use of cookies.</p>
+    <div class="privacy-header">
+      <h3>🍪 Cookie Preferences</h3>
+      <p>We use cookies to enhance your experience and analyze site performance. Choose your preferences below.</p>
+    </div>
+    
+    <div class="cookie-options">
+      <div class="cookie-option">
+        <div class="cookie-info">
+          <h4>Essential Cookies</h4>
+          <p>Required for the website to function properly. Cannot be disabled.</p>
+        </div>
+        <div class="cookie-toggle">
+          <input type="checkbox" id="essential-cookies" checked disabled />
+          <label for="essential-cookies" class="toggle-label"></label>
+        </div>
+      </div>
+      
+      <div class="cookie-option">
+        <div class="cookie-info">
+          <h4>Analytics Cookies</h4>
+          <p>Help us understand how visitors interact with our website by collecting anonymous information.</p>
+        </div>
+        <div class="cookie-toggle">
+          <input type="checkbox" id="analytics-cookies" />
+          <label for="analytics-cookies" class="toggle-label"></label>
+        </div>
+      </div>
+      
+      <div class="cookie-option">
+        <div class="cookie-info">
+          <h4>Performance Cookies</h4>
+          <p>Help us monitor website performance and identify areas for improvement.</p>
+        </div>
+        <div class="cookie-toggle">
+          <input type="checkbox" id="performance-cookies" />
+          <label for="performance-cookies" class="toggle-label"></label>
+        </div>
+      </div>
+    </div>
+    
     <div class="privacy-buttons">
-      <button onclick="acceptCookies()" class="privacy-btn accept">Accept</button>
-      <button onclick="declineCookies()" class="privacy-btn decline">Decline</button>
+      <button onclick="saveCookiePreferences()" class="privacy-btn accept">Save Preferences</button>
+      <button onclick="acceptAllCookies()" class="privacy-btn accept-all">Accept All</button>
+      <button onclick="declineAllCookies()" class="privacy-btn decline">Decline All</button>
+    </div>
+    
+    <div class="privacy-links">
+      <a href="/privacy-policy" class="privacy-link">Privacy Policy</a>
+      <a href="/cookie-policy" class="privacy-link">Cookie Policy</a>
     </div>
   </div>
+</div>
+
+<!-- Cookie Settings Button (for returning users) -->
+<div id="cookie-settings" class="cookie-settings" style="display: none;">
+  <button onclick="showCookiePreferences()" class="settings-btn">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <circle cx="12" cy="12" r="3"/>
+      <path d="M12 1v6m0 6v6"/>
+      <path d="M21 12h-6m-6 0H3"/>
+    </svg>
+    Cookie Settings
+  </button>
 </div>
 
 <style>
@@ -37,7 +94,7 @@ const GA_MEASUREMENT_ID = 'G-RJSZ5SN20B';
     right: 0;
     background: #1a202c;
     border-top: 1px solid #2d3748;
-    padding: 1rem;
+    padding: 1.5rem;
     z-index: 1000;
     box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.3);
   }
@@ -45,30 +102,112 @@ const GA_MEASUREMENT_ID = 'G-RJSZ5SN20B';
   .privacy-content {
     max-width: 1200px;
     margin: 0 auto;
+  }
+
+  .privacy-header {
+    margin-bottom: 1.5rem;
+  }
+
+  .privacy-header h3 {
+    color: var(--text-color);
+    margin-bottom: 0.5rem;
+    font-size: 1.25rem;
+  }
+
+  .privacy-header p {
+    color: var(--muted-text);
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  .cookie-options {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .cookie-option {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 1rem;
+    padding: 1rem;
+    background: #2d3748;
+    border-radius: 8px;
+    border: 1px solid #4a5568;
   }
 
-  .privacy-content p {
+  .cookie-info {
+    flex: 1;
+  }
+
+  .cookie-info h4 {
+    color: var(--text-color);
+    margin-bottom: 0.25rem;
+    font-size: 1rem;
+  }
+
+  .cookie-info p {
     color: var(--muted-text);
     margin: 0;
-    flex: 1;
+    font-size: 0.9rem;
+    line-height: 1.4;
+  }
+
+  .cookie-toggle {
+    margin-left: 1rem;
+  }
+
+  .toggle-label {
+    position: relative;
+    display: inline-block;
+    width: 44px;
+    height: 24px;
+    background: #4a5568;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+
+  .toggle-label::after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 20px;
+    height: 20px;
+    background: white;
+    border-radius: 50%;
+    transition: transform 0.3s ease;
+  }
+
+  input[type="checkbox"]:checked + .toggle-label {
+    background: var(--primary-color);
+  }
+
+  input[type="checkbox"]:checked + .toggle-label::after {
+    transform: translateX(20px);
+  }
+
+  input[type="checkbox"] {
+    display: none;
   }
 
   .privacy-buttons {
     display: flex;
-    gap: 0.5rem;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
   }
 
   .privacy-btn {
-    padding: 0.5rem 1rem;
+    padding: 0.75rem 1.5rem;
     border: none;
-    border-radius: 6px;
+    border-radius: 8px;
     cursor: pointer;
     font-weight: 600;
     transition: all 0.3s ease;
+    font-size: 0.9rem;
   }
 
   .privacy-btn.accept {
@@ -78,6 +217,17 @@ const GA_MEASUREMENT_ID = 'G-RJSZ5SN20B';
 
   .privacy-btn.accept:hover {
     background: #d32f2f;
+    transform: translateY(-1px);
+  }
+
+  .privacy-btn.accept-all {
+    background: #4CAF50;
+    color: white;
+  }
+
+  .privacy-btn.accept-all:hover {
+    background: #45a049;
+    transform: translateY(-1px);
   }
 
   .privacy-btn.decline {
@@ -89,17 +239,82 @@ const GA_MEASUREMENT_ID = 'G-RJSZ5SN20B';
   .privacy-btn.decline:hover {
     background: #2d3748;
     color: var(--text-color);
+    transform: translateY(-1px);
+  }
+
+  .privacy-links {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+  }
+
+  .privacy-link {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.3s ease;
+  }
+
+  .privacy-link:hover {
+    color: #d32f2f;
+    text-decoration: underline;
+  }
+
+  .cookie-settings {
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem;
+    z-index: 999;
+  }
+
+  .settings-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    background: #2d3748;
+    border: 1px solid #4a5568;
+    border-radius: 8px;
+    color: var(--muted-text);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+  }
+
+  .settings-btn:hover {
+    background: #4a5568;
+    color: var(--text-color);
+    transform: translateY(-1px);
   }
 
   @media (max-width: 768px) {
-    .privacy-content {
+    .privacy-notice {
+      padding: 1rem;
+    }
+
+    .cookie-option {
       flex-direction: column;
-      text-align: center;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+
+    .cookie-toggle {
+      margin-left: 0;
+      align-self: flex-end;
     }
 
     .privacy-buttons {
-      width: 100%;
-      justify-content: center;
+      flex-direction: column;
+    }
+
+    .privacy-links {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .cookie-settings {
+      bottom: 0.5rem;
+      right: 0.5rem;
     }
   }
 </style>
@@ -113,6 +328,12 @@ const GA_MEASUREMENT_ID = 'G-RJSZ5SN20B';
       trackFormSubmission: (formName: string) => void;
       trackButtonClick: (buttonName: string, buttonLocation: string) => void;
       trackExternalLink: (url: string, linkText: string) => void;
+      acceptCookies: () => void;
+      declineCookies: () => void;
+      acceptAllCookies: () => void;
+      declineAllCookies: () => void;
+      saveCookiePreferences: () => void;
+      showCookiePreferences: () => void;
       gtag: (...args: any[]) => void;
       dataLayer: any[];
     }
@@ -134,73 +355,182 @@ const GA_MEASUREMENT_ID = 'G-RJSZ5SN20B';
     document.cookie = `${name}=${value};expires=${expires.toUTCString()};path=/;SameSite=Lax`;
   }
 
-  function acceptCookies(): void {
-    setCookie('analytics-consent', 'accepted', 365);
+  function hidePrivacyNotice(): void {
     const privacyNotice = document.getElementById('privacy-notice');
     if (privacyNotice) {
       privacyNotice.style.display = 'none';
     }
+  }
+
+  function showCookieSettings(): void {
+    const cookieSettings = document.getElementById('cookie-settings');
+    if (cookieSettings) {
+      cookieSettings.style.display = 'block';
+    }
+  }
+
+  function acceptAllCookies(): void {
+    setCookie('analytics-consent', 'accepted', 365);
+    setCookie('performance-consent', 'accepted', 365);
+    setCookie('cookie-preferences', 'all-accepted', 365);
     
-    // Enable analytics
+    hidePrivacyNotice();
+    showCookieSettings();
+    
+    // Enable all tracking
     if (typeof gtag !== 'undefined') {
       gtag('consent', 'update', {
-        'analytics_storage': 'granted'
+        'analytics_storage': 'granted',
+        'performance_storage': 'granted'
+      });
+    }
+    
+    // Track the consent
+    if (window.trackEvent) {
+      window.trackEvent('cookie_consent', {
+        action: 'accept_all',
+        consent_type: 'all'
       });
     }
   }
 
-  function declineCookies(): void {
+  function declineAllCookies(): void {
     setCookie('analytics-consent', 'declined', 365);
-    const privacyNotice = document.getElementById('privacy-notice');
-    if (privacyNotice) {
-      privacyNotice.style.display = 'none';
-    }
+    setCookie('performance-consent', 'declined', 365);
+    setCookie('cookie-preferences', 'all-declined', 365);
     
-    // Disable analytics
+    hidePrivacyNotice();
+    showCookieSettings();
+    
+    // Disable all tracking
     if (typeof gtag !== 'undefined') {
       gtag('consent', 'update', {
-        'analytics_storage': 'denied'
+        'analytics_storage': 'denied',
+        'performance_storage': 'denied'
       });
     }
+    
+    // Track the consent
+    if (window.trackEvent) {
+      window.trackEvent('cookie_consent', {
+        action: 'decline_all',
+        consent_type: 'none'
+      });
+    }
+  }
+
+  function saveCookiePreferences(): void {
+    const analyticsChecked = (document.getElementById('analytics-cookies') as HTMLInputElement)?.checked;
+    const performanceChecked = (document.getElementById('performance-cookies') as HTMLInputElement)?.checked;
+    
+    // Save individual preferences
+    setCookie('analytics-consent', analyticsChecked ? 'accepted' : 'declined', 365);
+    setCookie('performance-consent', performanceChecked ? 'accepted' : 'declined', 365);
+    setCookie('cookie-preferences', 'custom', 365);
+    
+    hidePrivacyNotice();
+    showCookieSettings();
+    
+    // Update tracking based on preferences
+    if (typeof gtag !== 'undefined') {
+      gtag('consent', 'update', {
+        'analytics_storage': analyticsChecked ? 'granted' : 'denied',
+        'performance_storage': performanceChecked ? 'granted' : 'denied'
+      });
+    }
+    
+    // Track the consent
+    if (window.trackEvent) {
+      window.trackEvent('cookie_consent', {
+        action: 'save_preferences',
+        analytics: analyticsChecked,
+        performance: performanceChecked
+      });
+    }
+  }
+
+  function showCookiePreferences(): void {
+    const privacyNotice = document.getElementById('privacy-notice');
+    const cookieSettings = document.getElementById('cookie-settings');
+    
+    if (privacyNotice) {
+      privacyNotice.style.display = 'block';
+    }
+    if (cookieSettings) {
+      cookieSettings.style.display = 'none';
+    }
+  }
+
+  // Legacy functions for backward compatibility
+  function acceptCookies(): void {
+    acceptAllCookies();
+  }
+
+  function declineCookies(): void {
+    declineAllCookies();
   }
 
   // Check consent on page load
   document.addEventListener('DOMContentLoaded', function() {
-    const consent = getCookie('analytics-consent');
+    const analyticsConsent = getCookie('analytics-consent');
+    const performanceConsent = getCookie('performance-consent');
+    const cookiePreferences = getCookie('cookie-preferences');
     
-    if (!consent) {
-      // Show privacy notice if no consent has been given
+    if (!cookiePreferences) {
+      // First-time visitor - show privacy notice
       const privacyNotice = document.getElementById('privacy-notice');
       if (privacyNotice) {
         privacyNotice.style.display = 'block';
       }
       
-      // Disable analytics until consent is given
+      // Disable all tracking until consent is given
       if (typeof gtag !== 'undefined') {
         gtag('consent', 'default', {
-          'analytics_storage': 'denied'
+          'analytics_storage': 'denied',
+          'performance_storage': 'denied'
         });
       }
-    } else if (consent === 'declined') {
-      // Disable analytics if consent was declined
+    } else {
+      // Returning visitor - show settings button
+      showCookieSettings();
+      
+      // Apply saved preferences
       if (typeof gtag !== 'undefined') {
         gtag('consent', 'update', {
-          'analytics_storage': 'denied'
+          'analytics_storage': analyticsConsent === 'accepted' ? 'granted' : 'denied',
+          'performance_storage': performanceConsent === 'accepted' ? 'granted' : 'denied'
         });
+      }
+      
+      // Set checkbox states
+      const analyticsCheckbox = document.getElementById('analytics-cookies') as HTMLInputElement;
+      const performanceCheckbox = document.getElementById('performance-cookies') as HTMLInputElement;
+      
+      if (analyticsCheckbox) {
+        analyticsCheckbox.checked = analyticsConsent === 'accepted';
+      }
+      if (performanceCheckbox) {
+        performanceCheckbox.checked = performanceConsent === 'accepted';
       }
     }
   });
 
   // Track custom events
   function trackEvent(eventName: string, parameters: Record<string, any> = {}): void {
-    if (typeof gtag !== 'undefined' && getCookie('analytics-consent') === 'accepted') {
+    const analyticsConsent = getCookie('analytics-consent');
+    const performanceConsent = getCookie('performance-consent');
+    
+    // Only track if user has consented to analytics
+    if (typeof gtag !== 'undefined' && analyticsConsent === 'accepted') {
       gtag('event', eventName, parameters);
     }
   }
 
   // Track page views
   function trackPageView(pageTitle: string, pageLocation: string): void {
-    if (typeof gtag !== 'undefined' && getCookie('analytics-consent') === 'accepted') {
+    const analyticsConsent = getCookie('analytics-consent');
+    
+    if (typeof gtag !== 'undefined' && analyticsConsent === 'accepted') {
       gtag('event', 'page_view', {
         page_title: pageTitle,
         page_location: pageLocation
@@ -240,4 +570,12 @@ const GA_MEASUREMENT_ID = 'G-RJSZ5SN20B';
   window.trackFormSubmission = trackFormSubmission;
   window.trackButtonClick = trackButtonClick;
   window.trackExternalLink = trackExternalLink;
+  
+  // Make cookie functions globally available
+  window.acceptCookies = acceptCookies;
+  window.declineCookies = declineCookies;
+  window.acceptAllCookies = acceptAllCookies;
+  window.declineAllCookies = declineAllCookies;
+  window.saveCookiePreferences = saveCookiePreferences;
+  window.showCookiePreferences = showCookiePreferences;
 </script> 
