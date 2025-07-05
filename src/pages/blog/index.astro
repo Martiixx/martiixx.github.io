@@ -10,7 +10,13 @@ const sortedPosts = posts.sort((a, b) => new Date(b.data.pubDate).getTime() - ne
 const allTags = [...new Set(posts.flatMap(post => post.data.tags))];
 ---
 
-<BaseLayout title="Blog - Martin Carrasco" description="Technical articles and insights about software engineering, microservices, performance optimization, and modern web development.">
+<BaseLayout 
+  title="Blog - Martin Carrasco" 
+  description="Technical articles and insights about software engineering, microservices, performance optimization, and modern web development."
+  image="https://pub-55f502b1bb8a47b18e001af1f25c9d6c.r2.dev/profile-picture.jpeg"
+  tags={["blog", "technical articles", "software engineering", "microservices", "performance"]}
+  canonicalURL="https://www.martiixx.dev/blog"
+>
   <section class="blog-hero">
     <div class="container">
       <h1>Blog</h1>
@@ -337,11 +343,11 @@ const allTags = [...new Set(posts.flatMap(post => post.data.tags))];
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-    const searchInput = document.getElementById('search-input');
+    const searchInput = document.getElementById('search-input') as HTMLInputElement;
     const filterBtns = document.querySelectorAll('.filter-btn');
     const blogCards = document.querySelectorAll('.blog-card');
-    const blogGrid = document.getElementById('blog-grid');
-    const noResults = document.getElementById('no-results');
+    const blogGrid = document.getElementById('blog-grid') as HTMLElement;
+    const noResults = document.getElementById('no-results') as HTMLElement;
 
     let currentFilter = 'all';
     let currentSearch = '';
@@ -350,9 +356,13 @@ const allTags = [...new Set(posts.flatMap(post => post.data.tags))];
       let visibleCount = 0;
 
       blogCards.forEach(card => {
-        const title = card.querySelector('.blog-title').textContent.toLowerCase();
-        const excerpt = card.querySelector('.blog-excerpt').textContent.toLowerCase();
-        const tags = card.dataset.tags.toLowerCase();
+        const cardElement = card as HTMLElement;
+        const titleElement = cardElement.querySelector('.blog-title');
+        const excerptElement = cardElement.querySelector('.blog-excerpt');
+        
+        const title = titleElement?.textContent?.toLowerCase() || '';
+        const excerpt = excerptElement?.textContent?.toLowerCase() || '';
+        const tags = cardElement.dataset.tags?.toLowerCase() || '';
         
         const matchesSearch = currentSearch === '' || 
           title.includes(currentSearch) || 
@@ -360,13 +370,13 @@ const allTags = [...new Set(posts.flatMap(post => post.data.tags))];
           tags.includes(currentSearch);
         
         const matchesFilter = currentFilter === 'all' || 
-          card.dataset.tags.includes(currentFilter);
+          cardElement.dataset.tags?.includes(currentFilter) || false;
 
         if (matchesSearch && matchesFilter) {
-          card.style.display = 'block';
+          cardElement.style.display = 'block';
           visibleCount++;
         } else {
-          card.style.display = 'none';
+          cardElement.style.display = 'none';
         }
       });
 
@@ -381,14 +391,15 @@ const allTags = [...new Set(posts.flatMap(post => post.data.tags))];
     }
 
     // Search functionality
-    searchInput.addEventListener('input', function(e) {
-      currentSearch = e.target.value.toLowerCase();
+    searchInput?.addEventListener('input', function(e) {
+      const target = e.target as HTMLInputElement;
+      currentSearch = target.value.toLowerCase();
       filterPosts();
     });
 
     // Filter functionality
     filterBtns.forEach(btn => {
-      btn.addEventListener('click', function() {
+      btn.addEventListener('click', function(this: HTMLElement) {
         // Remove active class from all buttons
         filterBtns.forEach(b => b.classList.remove('active'));
         
@@ -396,7 +407,7 @@ const allTags = [...new Set(posts.flatMap(post => post.data.tags))];
         this.classList.add('active');
         
         // Update current filter
-        currentFilter = this.dataset.tag;
+        currentFilter = this.dataset.tag || 'all';
         
         // Filter posts
         filterPosts();
