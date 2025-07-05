@@ -3,6 +3,9 @@ import '../styles/styles.css';
 import SEO from '../components/SEO.astro';
 import Analytics from '../components/Analytics.astro';
 import PerformanceMonitor from '../components/PerformanceMonitor.astro';
+import ThemeToggle from '../components/ThemeToggle.astro';
+import SmoothScroll from '../components/SmoothScroll.astro';
+import Animations from '../components/Animations.astro';
 
 interface Props {
   title: string;
@@ -30,7 +33,7 @@ const {
 ---
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
   <head>
     <SEO 
       title={title}
@@ -60,9 +63,12 @@ const {
             <a href="/about">About</a>
             <a href="/contact">Contact</a>
           </div>
-          <button class="menu-btn" aria-label="Open menu" onclick="toggleMenu()">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-          </button>
+          <div class="nav-actions">
+            <ThemeToggle />
+            <button class="menu-btn" aria-label="Open menu" onclick="toggleMenu()">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+            </button>
+          </div>
         </div>
         <div id="mobile-menu" class="mobile-menu">
           <a href="/" onclick="toggleMenu()">Home</a>
@@ -86,6 +92,8 @@ const {
 
     <Analytics />
     <PerformanceMonitor />
+    <SmoothScroll />
+    <Animations />
   </body>
   <script>
     function toggleMenu() {
@@ -100,10 +108,29 @@ const {
 <style>
   /* Reset and base styles */
   :root {
-    --primary-color: #f23551;;
+    /* Dark theme (default) */
+    --primary-color: #f23551;
     --text-color: #fff;
     --background-color: #181c23;
     --muted-text: #b0b4be;
+    --header-bg: #232733;
+    --card-bg: #1a202c;
+    --border-color: #2d3748;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+    --hover-bg: #2d3748;
+  }
+
+  /* Light theme */
+  [data-theme="light"] {
+    --primary-color: #f23551;
+    --text-color: #1a202c;
+    --background-color: #ffffff;
+    --muted-text: #4a5568;
+    --header-bg: #f7fafc;
+    --card-bg: #ffffff;
+    --border-color: #e2e8f0;
+    --shadow-color: rgba(0, 0, 0, 0.05);
+    --hover-bg: #f1f5f9;
   }
 
   * {
@@ -117,15 +144,17 @@ const {
     line-height: 1.6;
     color: var(--text-color);
     background-color: var(--background-color);
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
 
   /* Header styles */
   header {
-    background-color: #232733;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: var(--header-bg);
+    box-shadow: 0 2px 4px var(--shadow-color);
     position: sticky;
     top: 0;
     z-index: 100;
+    transition: background-color 0.3s ease;
   }
 
   .nav-content {
@@ -145,6 +174,7 @@ const {
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    transition: color 0.3s ease;
   }
 
   .profile-pic {
@@ -153,6 +183,7 @@ const {
     border-radius: 50%;
     object-fit: cover;
     border: 2px solid var(--primary-color);
+    transition: border-color 0.3s ease;
   }
 
   .nav-links {
@@ -164,10 +195,17 @@ const {
     color: var(--muted-text);
     text-decoration: none;
     transition: color 0.3s ease;
+    position: relative;
   }
 
   .nav-links a:hover {
     color: var(--primary-color);
+  }
+
+  .nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
   }
 
   /* Main content styles */
@@ -180,10 +218,11 @@ const {
 
   /* Footer styles */
   footer {
-    background-color: #232733;
+    background-color: var(--header-bg);
     padding: 2rem 0;
     margin-top: auto;
     color: var(--muted-text);
+    transition: background-color 0.3s ease;
   }
 
   .footer-content {
@@ -205,6 +244,11 @@ const {
       align-items: center;
       gap: 1rem;
     }
+
+    .nav-actions {
+      flex-direction: row;
+      justify-content: center;
+    }
   }
 
   .menu-btn {
@@ -214,11 +258,13 @@ const {
     color: var(--text-color);
     cursor: pointer;
     padding: 0.5rem;
-    margin-left: 1rem;
+    transition: color 0.3s ease;
   }
+  
   .menu-btn svg {
     display: block;
   }
+  
   .mobile-menu {
     display: none;
     flex-direction: column;
@@ -227,26 +273,29 @@ const {
     right: 0;
     width: 70vw;
     height: 100vh;
-    background: #232733;
+    background: var(--header-bg);
     z-index: 200;
     padding-top: 5rem;
     gap: 2rem;
     align-items: flex-start;
-    box-shadow: -2px 0 16px rgba(0,0,0,0.2);
-    transition: all 0.3s;
+    box-shadow: -2px 0 16px var(--shadow-color);
+    transition: all 0.3s ease;
   }
+  
   .mobile-menu a {
-    color: #fff;
+    color: var(--text-color);
     font-size: 1.3rem;
     padding: 1rem 2rem;
     text-decoration: none;
     width: 100%;
-    transition: background 0.2s;
+    transition: background 0.2s, color 0.2s;
   }
+  
   .mobile-menu a:hover {
-    background: #181c23;
+    background: var(--hover-bg);
     color: var(--primary-color);
   }
+  
   @media (max-width: 900px) {
     .nav-links {
       display: none;
@@ -255,9 +304,22 @@ const {
       display: block;
     }
   }
+  
   @media (min-width: 901px) {
     .mobile-menu {
       display: none !important;
     }
+  }
+
+  /* Enhanced focus styles */
+  a:focus,
+  button:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+  }
+
+  /* Smooth transitions for theme changes */
+  * {
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
   }
 </style> 

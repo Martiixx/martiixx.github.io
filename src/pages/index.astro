@@ -10,46 +10,46 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   canonicalURL="https://www.martiixx.dev/"
 >
   <!-- Hero Section -->
-  <section class="hero">
+  <section class="hero" id="hero">
     <div class="hero-content">
-      <div class="hero-text">
+      <div class="hero-text fade-in">
         <h1 class="hero-title">
-          Hi, I'm <span class="highlight">Martin Carrasco</span>
+          Hi, I'm <span class="highlight gradient-text">Martin Carrasco</span>
         </h1>
-        <p class="hero-subtitle">
+        <p class="hero-subtitle typing">
           Software Engineer Consultant with 7 years of experience building scalable backend systems and microservices. 
           I help companies architect high-performance solutions that process millions of data points daily.
         </p>
-        <div class="hero-stats">
-          <div class="stat-item">
-            <span class="stat-number">7</span>
+        <div class="hero-stats stagger-container">
+          <div class="stat-item stagger-item">
+            <span class="stat-number pulse">7</span>
             <span class="stat-label">Years Experience</span>
           </div>
-          <div class="stat-item">
-            <span class="stat-number">50+</span>
+          <div class="stat-item stagger-item">
+            <span class="stat-number pulse">50+</span>
             <span class="stat-label">Projects Delivered</span>
           </div>
-          <div class="stat-item">
-            <span class="stat-number">1M+</span>
+          <div class="stat-item stagger-item">
+            <span class="stat-number pulse">1M+</span>
             <span class="stat-label">Data Points/Day</span>
           </div>
         </div>
         <div class="hero-buttons">
-          <a href="/contact" class="btn btn-primary">Let's Work Together</a>
+          <a href="/contact" class="btn btn-primary shimmer">Let's Work Together</a>
           <a href="/about" class="btn btn-secondary">Learn More About Me</a>
         </div>
         <div class="hero-badges">
           <div class="badge">
-            <span class="badge-dot"></span>
+            <span class="badge-dot bounce"></span>
             <span>Available for consulting</span>
           </div>
           <div class="badge">
-            <span class="badge-dot"></span>
+            <span class="badge-dot bounce"></span>
             <span>Remote & on-site work</span>
           </div>
         </div>
       </div>
-      <div class="hero-image">
+      <div class="hero-image slide-in-right">
         <div class="profile-container">
           <img src="https://pub-55f502b1bb8a47b18e001af1f25c9d6c.r2.dev/profile-picture.jpeg" alt="Martin Carrasco" class="hero-profile" />
         </div>
@@ -58,11 +58,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   </section>
 
   <!-- About Section -->
-  <section class="about">
+  <section class="about" id="about">
     <div class="container">
-      <h2>About Me</h2>
+      <h2 class="fade-in">About Me</h2>
       <div class="about-content">
-        <div class="about-text">
+        <div class="about-text slide-in-left">
           <p>
             I'm a passionate Software Engineer with deep expertise in backend architecture, microservices, and modern web technologies. 
             I specialize in building scalable applications using NestJS, Kafka, and advanced architectural patterns.
@@ -76,21 +76,21 @@ import BaseLayout from '../layouts/BaseLayout.astro';
             Whether you need architectural guidance, technical implementation, or team mentoring, I'm here to help.
           </p>
         </div>
-        <div class="skills">
+        <div class="skills slide-in-right">
           <h3>Core Technologies:</h3>
-          <div class="skill-tags">
-            <span class="skill-tag">TypeScript</span>
-            <span class="skill-tag">Node.js</span>
-            <span class="skill-tag">NestJS</span>
-            <span class="skill-tag">Java</span>
-            <span class="skill-tag">Spring Boot</span>
-            <span class="skill-tag">Kafka</span>
-            <span class="skill-tag">PostgreSQL</span>
-            <span class="skill-tag">MongoDB</span>
-            <span class="skill-tag">Redis</span>
-            <span class="skill-tag">Docker</span>
-            <span class="skill-tag">Kubernetes</span>
-            <span class="skill-tag">AWS</span>
+          <div class="skill-tags stagger-container">
+            <span class="skill-tag stagger-item">TypeScript</span>
+            <span class="skill-tag stagger-item">Node.js</span>
+            <span class="skill-tag stagger-item">NestJS</span>
+            <span class="skill-tag stagger-item">Java</span>
+            <span class="skill-tag stagger-item">Spring Boot</span>
+            <span class="skill-tag stagger-item">Kafka</span>
+            <span class="skill-tag stagger-item">PostgreSQL</span>
+            <span class="skill-tag stagger-item">MongoDB</span>
+            <span class="skill-tag stagger-item">Redis</span>
+            <span class="skill-tag stagger-item">Docker</span>
+            <span class="skill-tag stagger-item">Kubernetes</span>
+            <span class="skill-tag stagger-item">AWS</span>
           </div>
         </div>
       </div>
@@ -98,16 +98,16 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   </section>
 
   <!-- Services Section -->
-  <section class="services">
+  <section class="services" id="services">
     <div class="container">
-      <h2>How I Can Help You</h2>
-      <p class="services-intro">
+      <h2 class="fade-in">How I Can Help You</h2>
+      <p class="services-intro fade-in">
         I offer comprehensive software engineering consulting services to help your business build better, 
         more scalable systems. From initial architecture design to implementation and optimization.
       </p>
       
-      <div class="services-grid">
-        <div class="service-card">
+      <div class="services-grid stagger-container">
+        <div class="service-card stagger-item">
           <div class="service-icon">
             <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
               <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
@@ -126,7 +126,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           </ul>
         </div>
 
-        <div class="service-card">
+        <div class="service-card stagger-item">
           <div class="service-icon">
             <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
               <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
@@ -145,7 +145,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           </ul>
         </div>
 
-        <div class="service-card">
+        <div class="service-card stagger-item">
           <div class="service-icon">
             <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
               <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
@@ -167,7 +167,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           </ul>
         </div>
 
-        <div class="service-card">
+        <div class="service-card stagger-item">
           <div class="service-icon">
             <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
               <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
@@ -186,7 +186,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           </ul>
         </div>
 
-        <div class="service-card">
+        <div class="service-card stagger-item">
           <div class="service-icon">
             <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
               <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>

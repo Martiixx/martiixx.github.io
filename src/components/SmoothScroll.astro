@@ -1,0 +1,250 @@
+---
+// Smooth Scroll Component
+---
+
+<script>
+  // Smooth scrolling functionality
+  function initSmoothScroll() {
+    // Add smooth scrolling to all internal links
+    const internalLinks = document.querySelectorAll('a[href^="#"]');
+    
+    internalLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        
+        const href = link.getAttribute('href');
+        if (!href) return;
+        
+        const targetId = href.substring(1);
+        const targetElement = document.getElementById(targetId);
+        
+        if (targetElement) {
+          // Calculate offset for fixed header
+          const header = document.querySelector('header') as HTMLElement;
+          const headerHeight = header?.offsetHeight || 0;
+          const targetPosition = targetElement.offsetTop - headerHeight - 20;
+          
+          // Smooth scroll to target
+          window.scrollTo({
+            top: targetPosition,
+            behavior: 'smooth'
+          });
+          
+          // Update URL without page jump
+          history.pushState(null, '', `#${targetId}`);
+          
+          // Track scroll event
+          if (window.trackEvent) {
+            window.trackEvent('smooth_scroll', {
+              target: targetId,
+              from: window.location.pathname
+            });
+          }
+        }
+      });
+    });
+
+    // Add scroll-based navigation highlighting
+    function updateActiveNavLink() {
+      const sections = document.querySelectorAll('section[id]');
+      const navLinks = document.querySelectorAll('.nav-links a[href^="#"]');
+      
+      let currentSection = '';
+      
+      sections.forEach(section => {
+        const sectionElement = section as HTMLElement;
+        const sectionTop = sectionElement.offsetTop - 100;
+        const sectionHeight = sectionElement.offsetHeight;
+        
+        if (window.scrollY >= sectionTop && window.scrollY < sectionTop + sectionHeight) {
+          currentSection = section.getAttribute('id') || '';
+        }
+      });
+      
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === `#${currentSection}`) {
+          link.classList.add('active');
+        }
+      });
+    }
+
+    // Throttle scroll events for performance
+    let ticking = false;
+    function requestTick() {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          updateActiveNavLink();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }
+
+    window.addEventListener('scroll', requestTick);
+    
+    // Initial call
+    updateActiveNavLink();
+  }
+
+  // Back to top functionality
+  function initBackToTop() {
+    const backToTopButton = document.createElement('button');
+    backToTopButton.innerHTML = `
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polyline points="18,15 12,9 6,15"></polyline>
+      </svg>
+    `;
+    backToTopButton.className = 'back-to-top';
+    backToTopButton.setAttribute('aria-label', 'Back to top');
+    backToTopButton.setAttribute('title', 'Back to top');
+    
+    document.body.appendChild(backToTopButton);
+    
+    // Show/hide button based on scroll position
+    function toggleBackToTop() {
+      if (window.scrollY > 300) {
+        backToTopButton.classList.add('visible');
+      } else {
+        backToTopButton.classList.remove('visible');
+      }
+    }
+    
+    window.addEventListener('scroll', toggleBackToTop);
+    
+    // Scroll to top on click
+    backToTopButton.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+      
+      // Track back to top event
+      if (window.trackEvent) {
+        window.trackEvent('back_to_top', {
+          from_position: window.scrollY
+        });
+      }
+    });
+  }
+
+  // Initialize on DOM load
+  document.addEventListener('DOMContentLoaded', () => {
+    initSmoothScroll();
+    initBackToTop();
+  });
+</script>
+
+<style>
+  /* Active navigation link styles */
+  .nav-links a.active {
+    color: var(--primary-color) !important;
+    position: relative;
+  }
+
+  .nav-links a.active::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--primary-color);
+    border-radius: 1px;
+  }
+
+  /* Back to top button */
+  .back-to-top {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    width: 50px;
+    height: 50px;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+    transition: all 0.3s ease;
+    z-index: 1000;
+    box-shadow: 0 4px 12px rgba(242, 53, 81, 0.3);
+  }
+
+  .back-to-top.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .back-to-top:hover {
+    background: #d32f2f;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(242, 53, 81, 0.4);
+  }
+
+  .back-to-top:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(242, 53, 81, 0.3);
+  }
+
+  /* Smooth scroll behavior for the entire page */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Enhanced focus styles for better accessibility */
+  a:focus,
+  button:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+  }
+
+  /* Scroll indicator */
+  .scroll-indicator {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary-color), #d32f2f);
+    z-index: 1001;
+    transition: width 0.1s ease;
+  }
+
+  @media (max-width: 768px) {
+    .back-to-top {
+      bottom: 1rem;
+      right: 1rem;
+      width: 45px;
+      height: 45px;
+    }
+  }
+</style>
+
+<!-- Scroll indicator -->
+<div class="scroll-indicator" id="scroll-indicator"></div>
+
+<script>
+  // Scroll indicator functionality
+  function initScrollIndicator() {
+    const scrollIndicator = document.getElementById('scroll-indicator');
+    
+    window.addEventListener('scroll', () => {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const scrollPercent = (scrollTop / docHeight) * 100;
+      
+      if (scrollIndicator) {
+        scrollIndicator.style.width = `${scrollPercent}%`;
+      }
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', initScrollIndicator);
+</script> 
