@@ -1,0 +1,207 @@
+---
+// Performance monitoring component
+// Tracks Core Web Vitals and other performance metrics
+---
+
+<script>
+  // Performance monitoring functions
+  function trackPerformanceMetrics() {
+    // Track Core Web Vitals
+    if ('PerformanceObserver' in window) {
+      // Largest Contentful Paint (LCP)
+      const lcpObserver = new PerformanceObserver((list) => {
+        const entries = list.getEntries();
+        const lastEntry = entries[entries.length - 1];
+        
+        if (window.trackEvent) {
+          window.trackEvent('core_web_vital', {
+            metric_name: 'LCP',
+            metric_value: Math.round(lastEntry.startTime),
+            metric_rating: getMetricRating(lastEntry.startTime, [2500, 4000])
+          });
+        }
+      });
+      
+      try {
+        lcpObserver.observe({ entryTypes: ['largest-contentful-paint'] });
+      } catch (e) {
+        console.warn('LCP observer failed:', e);
+      }
+
+      // First Input Delay (FID)
+      const fidObserver = new PerformanceObserver((list) => {
+        const entries = list.getEntries();
+        entries.forEach((entry) => {
+          const fidEntry = entry as PerformanceEventTiming;
+          if (window.trackEvent) {
+            window.trackEvent('core_web_vital', {
+              metric_name: 'FID',
+              metric_value: Math.round(fidEntry.processingStart - fidEntry.startTime),
+              metric_rating: getMetricRating(fidEntry.processingStart - fidEntry.startTime, [100, 300])
+            });
+          }
+        });
+      });
+      
+      try {
+        fidObserver.observe({ entryTypes: ['first-input'] });
+      } catch (e) {
+        console.warn('FID observer failed:', e);
+      }
+
+      // Cumulative Layout Shift (CLS)
+      let clsValue = 0;
+      const clsObserver = new PerformanceObserver((list) => {
+        const entries = list.getEntries();
+        entries.forEach((entry) => {
+          const clsEntry = entry as any; // Using any for layout shift entry
+          if (!clsEntry.hadRecentInput) {
+            clsValue += clsEntry.value;
+          }
+        });
+        
+        if (window.trackEvent) {
+          window.trackEvent('core_web_vital', {
+            metric_name: 'CLS',
+            metric_value: Math.round(clsValue * 1000) / 1000,
+            metric_rating: getMetricRating(clsValue, [0.1, 0.25])
+          });
+        }
+      });
+      
+      try {
+        clsObserver.observe({ entryTypes: ['layout-shift'] });
+      } catch (e) {
+        console.warn('CLS observer failed:', e);
+      }
+    }
+
+    // Track page load performance
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        const navigation = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming;
+        if (navigation) {
+          const metrics = {
+            dns_lookup: navigation.domainLookupEnd - navigation.domainLookupStart,
+            tcp_connection: navigation.connectEnd - navigation.connectStart,
+            server_response: navigation.responseEnd - navigation.requestStart,
+            dom_parsing: navigation.domContentLoadedEventEnd - navigation.domContentLoadedEventStart,
+            page_load: navigation.loadEventEnd - navigation.loadEventStart,
+            total_load_time: navigation.loadEventEnd - navigation.fetchStart
+          };
+
+          if (window.trackEvent) {
+            window.trackEvent('page_performance', {
+              page_url: window.location.href,
+              ...metrics
+            });
+          }
+        }
+      }, 0);
+    });
+  }
+
+  // Helper function to determine metric rating
+  function getMetricRating(value: number, thresholds: [number, number]): string {
+    const [good, poor] = thresholds;
+    if (value <= good) return 'good';
+    if (value <= poor) return 'needs-improvement';
+    return 'poor';
+  }
+
+  // Track resource loading performance
+  function trackResourcePerformance() {
+    if ('PerformanceObserver' in window) {
+      const resourceObserver = new PerformanceObserver((list) => {
+        const entries = list.getEntries();
+        entries.forEach((entry) => {
+          const resourceEntry = entry as PerformanceResourceTiming;
+          
+          // Only track slow resources (> 1 second)
+          if (resourceEntry.duration > 1000) {
+            if (window.trackEvent) {
+              window.trackEvent('slow_resource', {
+                resource_url: resourceEntry.name,
+                resource_type: resourceEntry.initiatorType,
+                load_time: Math.round(resourceEntry.duration),
+                transfer_size: resourceEntry.transferSize || 0
+              });
+            }
+          }
+        });
+      });
+      
+      try {
+        resourceObserver.observe({ entryTypes: ['resource'] });
+      } catch (e) {
+        console.warn('Resource observer failed:', e);
+      }
+    }
+  }
+
+  // Track user interactions
+  function trackUserInteractions() {
+    // Track scroll depth
+    let maxScrollDepth = 0;
+    window.addEventListener('scroll', () => {
+      const scrollDepth = Math.round((window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100);
+      if (scrollDepth > maxScrollDepth) {
+        maxScrollDepth = scrollDepth;
+        
+        // Track at 25%, 50%, 75%, 100%
+        if ([25, 50, 75, 100].includes(scrollDepth)) {
+          if (window.trackEvent) {
+            window.trackEvent('scroll_depth', {
+              depth_percentage: scrollDepth,
+              page_url: window.location.href
+            });
+          }
+        }
+      }
+    });
+
+    // Track time on page
+    let startTime = Date.now();
+    window.addEventListener('beforeunload', () => {
+      const timeOnPage = Date.now() - startTime;
+      if (window.trackEvent) {
+        window.trackEvent('time_on_page', {
+          time_seconds: Math.round(timeOnPage / 1000),
+          page_url: window.location.href
+        });
+      }
+    });
+  }
+
+  // Track errors
+  function trackErrors() {
+    window.addEventListener('error', (event) => {
+      if (window.trackEvent) {
+        window.trackEvent('javascript_error', {
+          error_message: event.message,
+          error_filename: event.filename,
+          error_lineno: event.lineno,
+          error_colno: event.colno,
+          page_url: window.location.href
+        });
+      }
+    });
+
+    window.addEventListener('unhandledrejection', (event) => {
+      if (window.trackEvent) {
+        window.trackEvent('unhandled_promise_rejection', {
+          error_message: event.reason?.message || event.reason,
+          page_url: window.location.href
+        });
+      }
+    });
+  }
+
+  // Initialize performance monitoring
+  document.addEventListener('DOMContentLoaded', () => {
+    trackPerformanceMetrics();
+    trackResourcePerformance();
+    trackUserInteractions();
+    trackErrors();
+  });
+</script> 

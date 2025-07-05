@@ -1,6 +1,8 @@
 ---
 import '../styles/styles.css';
 import SEO from '../components/SEO.astro';
+import Analytics from '../components/Analytics.astro';
+import PerformanceMonitor from '../components/PerformanceMonitor.astro';
 
 interface Props {
   title: string;
@@ -81,6 +83,9 @@ const {
         <p>&copy; {new Date().getFullYear()} Martin Carrasco. All rights reserved.</p>
       </div>
     </footer>
+
+    <Analytics />
+    <PerformanceMonitor />
   </body>
   <script>
     function toggleMenu() {

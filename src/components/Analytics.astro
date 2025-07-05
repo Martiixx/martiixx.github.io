@@ -1,0 +1,243 @@
+---
+// Google Analytics 4 Configuration
+const GA_MEASUREMENT_ID = 'G-RJSZ5SN20B';
+---
+
+<!-- Google Analytics 4 -->
+<script type="text/partytown" async src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}></script>
+<script type="text/partytown">
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-RJSZ5SN20B', {
+    page_title: document.title,
+    page_location: window.location.href,
+    send_page_view: true,
+    anonymize_ip: true,
+    cookie_flags: 'SameSite=None;Secure'
+  });
+</script>
+
+<!-- Privacy Notice -->
+<div id="privacy-notice" class="privacy-notice" style="display: none;">
+  <div class="privacy-content">
+    <p>This website uses cookies and analytics to improve your experience. By continuing to use this site, you consent to our use of cookies.</p>
+    <div class="privacy-buttons">
+      <button onclick="acceptCookies()" class="privacy-btn accept">Accept</button>
+      <button onclick="declineCookies()" class="privacy-btn decline">Decline</button>
+    </div>
+  </div>
+</div>
+
+<style>
+  .privacy-notice {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #1a202c;
+    border-top: 1px solid #2d3748;
+    padding: 1rem;
+    z-index: 1000;
+    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.3);
+  }
+
+  .privacy-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .privacy-content p {
+    color: var(--muted-text);
+    margin: 0;
+    flex: 1;
+  }
+
+  .privacy-buttons {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .privacy-btn {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+  }
+
+  .privacy-btn.accept {
+    background: var(--primary-color);
+    color: white;
+  }
+
+  .privacy-btn.accept:hover {
+    background: #d32f2f;
+  }
+
+  .privacy-btn.decline {
+    background: transparent;
+    color: var(--muted-text);
+    border: 1px solid #2d3748;
+  }
+
+  .privacy-btn.decline:hover {
+    background: #2d3748;
+    color: var(--text-color);
+  }
+
+  @media (max-width: 768px) {
+    .privacy-content {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .privacy-buttons {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+</style>
+
+<script>
+  // Type declarations for global tracking functions
+  declare global {
+    interface Window {
+      trackEvent: (eventName: string, parameters?: Record<string, any>) => void;
+      trackPageView: (pageTitle: string, pageLocation: string) => void;
+      trackFormSubmission: (formName: string) => void;
+      trackButtonClick: (buttonName: string, buttonLocation: string) => void;
+      trackExternalLink: (url: string, linkText: string) => void;
+      gtag: (...args: any[]) => void;
+      dataLayer: any[];
+    }
+  }
+
+  // Declare gtag function
+  declare function gtag(...args: any[]): void;
+
+  // Cookie consent management
+  function getCookie(name: string): string | undefined {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop()?.split(';').shift();
+  }
+
+  function setCookie(name: string, value: string, days: number): void {
+    const expires = new Date();
+    expires.setTime(expires.getTime() + (days * 24 * 60 * 60 * 1000));
+    document.cookie = `${name}=${value};expires=${expires.toUTCString()};path=/;SameSite=Lax`;
+  }
+
+  function acceptCookies(): void {
+    setCookie('analytics-consent', 'accepted', 365);
+    const privacyNotice = document.getElementById('privacy-notice');
+    if (privacyNotice) {
+      privacyNotice.style.display = 'none';
+    }
+    
+    // Enable analytics
+    if (typeof gtag !== 'undefined') {
+      gtag('consent', 'update', {
+        'analytics_storage': 'granted'
+      });
+    }
+  }
+
+  function declineCookies(): void {
+    setCookie('analytics-consent', 'declined', 365);
+    const privacyNotice = document.getElementById('privacy-notice');
+    if (privacyNotice) {
+      privacyNotice.style.display = 'none';
+    }
+    
+    // Disable analytics
+    if (typeof gtag !== 'undefined') {
+      gtag('consent', 'update', {
+        'analytics_storage': 'denied'
+      });
+    }
+  }
+
+  // Check consent on page load
+  document.addEventListener('DOMContentLoaded', function() {
+    const consent = getCookie('analytics-consent');
+    
+    if (!consent) {
+      // Show privacy notice if no consent has been given
+      const privacyNotice = document.getElementById('privacy-notice');
+      if (privacyNotice) {
+        privacyNotice.style.display = 'block';
+      }
+      
+      // Disable analytics until consent is given
+      if (typeof gtag !== 'undefined') {
+        gtag('consent', 'default', {
+          'analytics_storage': 'denied'
+        });
+      }
+    } else if (consent === 'declined') {
+      // Disable analytics if consent was declined
+      if (typeof gtag !== 'undefined') {
+        gtag('consent', 'update', {
+          'analytics_storage': 'denied'
+        });
+      }
+    }
+  });
+
+  // Track custom events
+  function trackEvent(eventName: string, parameters: Record<string, any> = {}): void {
+    if (typeof gtag !== 'undefined' && getCookie('analytics-consent') === 'accepted') {
+      gtag('event', eventName, parameters);
+    }
+  }
+
+  // Track page views
+  function trackPageView(pageTitle: string, pageLocation: string): void {
+    if (typeof gtag !== 'undefined' && getCookie('analytics-consent') === 'accepted') {
+      gtag('event', 'page_view', {
+        page_title: pageTitle,
+        page_location: pageLocation
+      });
+    }
+  }
+
+  // Track form submissions
+  function trackFormSubmission(formName: string): void {
+    trackEvent('form_submit', {
+      form_name: formName,
+      page_location: window.location.href
+    });
+  }
+
+  // Track button clicks
+  function trackButtonClick(buttonName: string, buttonLocation: string): void {
+    trackEvent('button_click', {
+      button_name: buttonName,
+      button_location: buttonLocation,
+      page_location: window.location.href
+    });
+  }
+
+  // Track external links
+  function trackExternalLink(url: string, linkText: string): void {
+    trackEvent('external_link_click', {
+      link_url: url,
+      link_text: linkText,
+      page_location: window.location.href
+    });
+  }
+
+  // Make tracking functions globally available
+  window.trackEvent = trackEvent;
+  window.trackPageView = trackPageView;
+  window.trackFormSubmission = trackFormSubmission;
+  window.trackButtonClick = trackButtonClick;
+  window.trackExternalLink = trackExternalLink;
+</script> 
