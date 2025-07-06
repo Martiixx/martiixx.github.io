@@ -34,6 +34,13 @@ A modern, high-performance personal portfolio website built with **Astro** and *
 - **Sitemap Generation** - Automatic sitemap for search engines
 - **Social Media Cards** - Optimized sharing on social platforms
 
+### ♿ **Accessibility First**
+- **WCAG 2.1 AA Compliance** - Full accessibility standards compliance
+- **Keyboard Navigation** - Complete keyboard accessibility
+- **Screen Reader Support** - Proper ARIA labels and semantic HTML
+- **Focus Management** - Clear focus indicators and logical tab order
+- **Reduced Motion Support** - Respects user motion preferences
+
 ### 🛠 **Developer Experience**
 - **TypeScript** - Full type safety and better development experience
 - **Tailwind CSS** - Utility-first CSS framework for rapid development
