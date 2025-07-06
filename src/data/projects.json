@@ -11,6 +11,16 @@
   },
   {
     "id": 2,
+    "name": "Martiixx's web site",
+    "description": "Personal portfolio website built using Cursor, showcasing software engineering projects, blog posts, and professional experience. Features a modern, responsive design with dark/light theme support and optimized performance.",
+    "image": "https://pub-55f502b1bb8a47b18e001af1f25c9d6c.r2.dev/Screenshot%202025-07-06%20at%2012.14.05.png",
+    "technologies": ["Astro", "TypeScript", "Tailwind CSS", "Cursor"],
+    "links": {
+      "github": "https://github.com/martiixx/martiixx.github.io"
+    }
+  },
+  {
+    "id": 3,
     "name": "Kafka topic real time counter",
     "description": "Kafka Observer is a microservice that connects to Kafka topics and keeps track of message counts in real-time. It provides REST endpoints to query the current message counts for each topic.",
     "image": "project-2",
@@ -20,7 +30,7 @@
     }
   },
   {
-    "id": 3,
+    "id": 4,
     "name": "Rutify npm package",
     "description": "A Node.js library for formatting and validating Chilean RUT (Rol Único Tributario) numbers. It provides functions to format RUTs as strings, validate them, and extract the digits and check digit.",
     "image": "project-3",
@@ -28,5 +38,5 @@
     "links": {
       "github": "https://github.com/Martiixx/rutify"
     }
-  }
+  }  
 ] 
