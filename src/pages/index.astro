@@ -383,6 +383,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
   .profile-container {
     position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   .hero-profile {
@@ -391,6 +394,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     border-radius: 50%;
     object-fit: cover;
     box-shadow: 0 20px 40px rgba(224, 244, 44, 0.995);
+    transition: transform 0.3s ease;
+  }
+
+  .hero-profile:hover {
+    transform: scale(1.05);
   }
 
   /* About Section */
@@ -597,11 +605,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
     .hero-buttons {
       justify-content: center;
-      flex-wrap: wrap;
-    }
-
-    .hero-badges {
-      justify-content: center;
     }
 
     .hero-profile {
@@ -616,6 +619,78 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
     .services-grid {
       grid-template-columns: 1fr;
+    }
+
+    .container {
+      padding: 0 1rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .hero {
+      padding: 4rem 0;
+    }
+
+    .hero-content {
+      padding: 0 1rem;
+      gap: 1.5rem;
+    }
+
+    .hero-title {
+      font-size: 2rem;
+    }
+
+    .hero-subtitle {
+      font-size: 1rem;
+    }
+
+    .hero-stats {
+      gap: 1rem;
+    }
+
+    .stat-number {
+      font-size: 1.5rem;
+    }
+
+    .hero-profile {
+      width: 200px;
+      height: 200px;
+    }
+
+    .hero-buttons {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .btn {
+      width: 100%;
+      max-width: 250px;
+      justify-content: center;
+    }
+
+    .hero-badges {
+      justify-content: center;
+    }
+
+    .about h2,
+    .services h2 {
+      font-size: 2rem;
+    }
+
+    .services-intro {
+      font-size: 1rem;
+    }
+
+    .service-card {
+      padding: 1.5rem;
+    }
+
+    .services-cta {
+      padding: 2rem 1rem;
+    }
+
+    .cta-content h3 {
+      font-size: 1.5rem;
     }
 
     .cta-buttons {
